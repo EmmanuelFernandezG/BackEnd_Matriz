@@ -85,6 +85,4 @@ public class Usuarios_Modelo {
 		this.version = version;
 	}
 
-	
-	
 }

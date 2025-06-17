@@ -8,4 +8,5 @@ import com.back.cd.back.cd.Modelo.Usuarios_Modelo;
 
 public interface Usuarios_Repositorio extends JpaRepository<Usuarios_Modelo, Long> {
 
+
 }
