@@ -1,188 +1,181 @@
 package com.back.cd.back.cd.Modelo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "matrizcd")
-
+@javax.persistence.Entity
+@javax.persistence.Table(name = "matrizcd")
 public class Matriz_Control_Documental_Modelo {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "fecha_de_recepcion")
+	@javax.persistence.Column(name = "fecha_de_recepcion")
      private LocalDateTime fecha_de_recepcion;
 
-     @Column(name = "fecha_inicio")
-     private LocalDate fecha_inicio;
+     @javax.persistence.Column(name = "fecha_inicio")
+     private LocalDateTime fecha_inicio;
 
-     @Column(name = "folio_tt")
+     @javax.persistence.Column(name = "folio_tt")
      private Integer folio_tt;
 
-     @Column(name = "no_oc")
+     @javax.persistence.Column(name = "no_oc")
      private Integer no_oc;
 
-     @Column(name = "unidad_de_negocio")
+     @javax.persistence.Column(name = "unidad_de_negocio")
      private String unidad_de_negocio;
 
-     @Column(name = "no_de_proveedor")
+     @javax.persistence.Column(name = "no_de_proveedor")
      private Integer no_de_proveedor;
 
-     @Column(name = "proveedor")
+     @javax.persistence.Column(name = "proveedor")
      private String proveedor;
 
-     @Column(name = "gerente_de_compras")
+     @javax.persistence.Column(name = "gerente_de_compras")
      private String gerente_de_compras;
 
-     @Column(name = "confirmador")
+     @javax.persistence.Column(name = "confirmador")
      private String confirmador;
 
-     @Column(name = "segunda")
+     @javax.persistence.Column(name = "segunda")
      private String segunda;
 
-     @Column(name = "precio")
+     @javax.persistence.Column(name = "precio")
      private String precio;
 
-     @Column(name = "matriz")
+     @javax.persistence.Column(name = "matriz")
      private String matriz;
 
-     @Column(name = "datos_fiscales")
+     @javax.persistence.Column(name = "datos_fiscales")
      private String datos_fiscales;
 
-     @Column(name = "term_de_pago")
+     @javax.persistence.Column(name = "term_de_pago")
      private String term_de_pago;
 
-     @Column(name = "dir_de_prov")
+     @javax.persistence.Column(name = "dir_de_prov")
      private String dir_de_prov;
 
-     @Column(name = "tax_id")
+     @javax.persistence.Column(name = "tax_id")
      private String tax_id;
 
-     @Column(name = "incoterm")
+     @javax.persistence.Column(name = "incoterm")
      private String incoterm;
 
-     @Column(name = "qty")
+     @javax.persistence.Column(name = "qty")
      private String qty;
 
-     @Column(name = "etd")
+     @javax.persistence.Column(name = "etd")
      private String etd;
 
-     @Column(name = "etd_po")
+     @javax.persistence.Column(name = "etd_po")
      private LocalDateTime etd_po;
 
-     @Column(name = "etd_pi")
+     @javax.persistence.Column(name = "etd_pi")
      private LocalDateTime etd_pi;
 
-     @Column(name = "montopi")
+     @javax.persistence.Column(name = "montopi")
      private Float montopi;
 
-     @Column(name = "moneda")
+     @javax.persistence.Column(name = "moneda")
      private String moneda;
 
-     @Column(name = "add_elim_item")
+     @javax.persistence.Column(name = "add_elim_item")
      private String add_elim_item;
 
-     @Column(name = "peso_vol")
+     @javax.persistence.Column(name = "peso_vol")
      private String peso_vol;
 
-     @Column(name = "pto_directo")
+     @javax.persistence.Column(name = "pto_directo")
      private String pto_directo;
 
-     @Column(name = "validacion_pod_vs_pi")
+     @javax.persistence.Column(name = "validacion_pod_vs_pi")
      private String validacion_pod_vs_pi;
 
-     @Column(name = "observaciones", length = 2612)
+     @javax.persistence.Column(name = "observaciones", length = 2612)
      private String observaciones;
 
-     @Column(name = "liberacion_de_matr_con_sello")
+     @javax.persistence.Column(name = "liberacion_de_matr_con_sello")
      private String liberacion_de_matr_con_sello;
 
-     @Column(name = "validaciones_extraordinarias")
+     @javax.persistence.Column(name = "validaciones_extraordinarias")
      private String validaciones_extraordinarias;
 
-     @Column(name = "condicion_de_matrices")
+     @javax.persistence.Column(name = "condicion_de_matrices")
      private String condicion_de_matrices;
 
-     @Column(name = "compartida")
+     @javax.persistence.Column(name = "compartida")
      private String compartida;
 
-     @Column(name = "area_destino")
+     @javax.persistence.Column(name = "area_destino")
      private String area_destino;
 
-     @Column(name = "fecha_area_destino")
-     private LocalDate fecha_area_destino;
+     @javax.persistence.Column(name = "fecha_area_destino")
+     private LocalDateTime fecha_area_destino;
 
-     @Column(name = "acuse")
+     @javax.persistence.Column(name = "acuse")
      private String acuse;
 
-     @Column(name = "status__problema")
+     @javax.persistence.Column(name = "status__problema")
      private String status__problema;
 
-     @Column(name = "liberada_por_matrices")
+     @javax.persistence.Column(name = "liberada_por_matrices")
      private String liberada_por_matrices;
 
-     @Column(name = "fecha_matrices")
-     private LocalDate fecha_matrices;
+     @javax.persistence.Column(name = "fecha_matrices")
+     private LocalDateTime fecha_matrices;
 
-     @Column(name = "motivo_matrices", length = 1500)
+     @javax.persistence.Column(name = "motivo_matrices", length = 1500)
      private String motivo_matrices;
 
-     @Column(name = "liberada_por_bu")
+     @javax.persistence.Column(name = "liberada_por_bu")
      private String liberada_por_bu;
 
-     @Column(name = "fecha_bu")
-     private LocalDate fecha_bu;
+     @javax.persistence.Column(name = "fecha_bu")
+     private LocalDateTime fecha_bu;
 
-     @Column(name = "motivo_bu")
+     @javax.persistence.Column(name = "motivo_bu")
      private String motivo_bu;
 
-     @Column(name = "liberada_por_planeacion")
+     @javax.persistence.Column(name = "liberada_por_planeacion")
      private String liberada_por_planeacion;
 
-     @Column(name = "fecha_planeacion")
-     private LocalDate fecha_planeacion;
+     @javax.persistence.Column(name = "fecha_planeacion")
+     private LocalDateTime fecha_planeacion;
 
-     @Column(name = "motivo_planeacion")
+     @javax.persistence.Column(name = "motivo_planeacion")
      private String motivo_planeacion;
 
-     @Column(name = "liberada_por_auditoria")
+     @javax.persistence.Column(name = "liberada_por_auditoria")
      private String liberada_por_auditoria;
 
-     @Column(name = "fecha_auditoria")
-     private LocalDate fecha_auditoria;
+     @javax.persistence.Column(name = "fecha_auditoria")
+     private LocalDateTime fecha_auditoria;
 
-     @Column(name = "motivo_auditoria")
+     @javax.persistence.Column(name = "motivo_auditoria")
      private String motivo_auditoria;
 
-     @Column(name = "liberada_por_sap")
+     @javax.persistence.Column(name = "liberada_por_sap")
      private String liberada_por_sap;
 
-     @Column(name = "fecha_sap")
-     private LocalDate fecha_sap;
+     @javax.persistence.Column(name = "fecha_sap")
+     private LocalDateTime fecha_sap;
 
-     @Column(name = "motivo_sap")
+     @javax.persistence.Column(name = "motivo_sap")
      private String motivo_sap;
 
-     @Column(name = "envio_a_proveedor")
+     @javax.persistence.Column(name = "envio_a_proveedor")
      private String envio_a_proveedor;
 
-     @Column(name = "trial")
+     @javax.persistence.Column(name = "trial")
      private String trial;
 
-     @Column(name = "fecha_entrega_compras")
+     @javax.persistence.Column(name = "fecha_entrega_compras")
      private LocalDateTime fecha_entrega_compras;
      
      
@@ -202,11 +195,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.fecha_de_recepcion = fecha_de_recepcion;
 	}
 
-	public LocalDate getFecha_inicio() {
+	public LocalDateTime getFecha_inicio() {
 		return fecha_inicio;
 	}
 
-	public void setFecha_inicio(LocalDate fecha_inicio) {
+	public void setFecha_inicio(LocalDateTime fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
 	}
 
@@ -458,11 +451,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.area_destino = area_destino;
 	}
 
-	public LocalDate getFecha_area_destino() {
+	public LocalDateTime getFecha_area_destino() {
 		return fecha_area_destino;
 	}
 
-	public void setFecha_area_destino(LocalDate fecha_area_destino) {
+	public void setFecha_area_destino(LocalDateTime fecha_area_destino) {
 		this.fecha_area_destino = fecha_area_destino;
 	}
 
@@ -490,11 +483,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.liberada_por_matrices = liberada_por_matrices;
 	}
 
-	public LocalDate getFecha_matrices() {
+	public LocalDateTime getFecha_matrices() {
 		return fecha_matrices;
 	}
 
-	public void setFecha_matrices(LocalDate fecha_matrices) {
+	public void setFecha_matrices(LocalDateTime fecha_matrices) {
 		this.fecha_matrices = fecha_matrices;
 	}
 
@@ -514,11 +507,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.liberada_por_bu = liberada_por_bu;
 	}
 
-	public LocalDate getFecha_bu() {
+	public LocalDateTime getFecha_bu() {
 		return fecha_bu;
 	}
 
-	public void setFecha_bu(LocalDate fecha_bu) {
+	public void setFecha_bu(LocalDateTime fecha_bu) {
 		this.fecha_bu = fecha_bu;
 	}
 
@@ -538,11 +531,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.liberada_por_planeacion = liberada_por_planeacion;
 	}
 
-	public LocalDate getFecha_planeacion() {
+	public LocalDateTime getFecha_planeacion() {
 		return fecha_planeacion;
 	}
 
-	public void setFecha_planeacion(LocalDate fecha_planeacion) {
+	public void setFecha_planeacion(LocalDateTime fecha_planeacion) {
 		this.fecha_planeacion = fecha_planeacion;
 	}
 
@@ -562,11 +555,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.liberada_por_auditoria = liberada_por_auditoria;
 	}
 
-	public LocalDate getFecha_auditoria() {
+	public LocalDateTime getFecha_auditoria() {
 		return fecha_auditoria;
 	}
 
-	public void setFecha_auditoria(LocalDate fecha_auditoria) {
+	public void setFecha_auditoria(LocalDateTime fecha_auditoria) {
 		this.fecha_auditoria = fecha_auditoria;
 	}
 
@@ -586,11 +579,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.liberada_por_sap = liberada_por_sap;
 	}
 
-	public LocalDate getFecha_sap() {
+	public LocalDateTime getFecha_sap() {
 		return fecha_sap;
 	}
 
-	public void setFecha_sap(LocalDate fecha_sap) {
+	public void setFecha_sap(LocalDateTime fecha_sap) {
 		this.fecha_sap = fecha_sap;
 	}
 
@@ -642,10 +635,10 @@ public class Matriz_Control_Documental_Modelo {
 		this.fecha_entrega_compras = fecha_entrega_compras;
 	}
 
-	@Column(name = "historial_de_modificacion")
+	@javax.persistence.Column(name = "historial_de_modificacion")
      private String historial_de_modificacion;
 
-     @Column(name = "fecha_revision")
+     @javax.persistence.Column(name = "fecha_revision")
      private LocalDateTime fecha_revision;
 
 }

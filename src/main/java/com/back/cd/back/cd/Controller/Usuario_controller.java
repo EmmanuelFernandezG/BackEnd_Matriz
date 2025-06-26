@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.back.cd.back.cd.Exception.ResourceNotFoudException;
+import com.back.cd.back.cd.Exception.ResourceNotFoundException;
 import com.back.cd.back.cd.Modelo.Usuarios_Modelo;
 import com.back.cd.back.cd.Modelo.Repositorio.Usuarios_Repositorio;
 
@@ -34,7 +34,7 @@ public class Usuario_controller {
 	@GetMapping("/usuarios/{Id}")
 	public ResponseEntity<Usuarios_Modelo>  usuarioPorId(@PathVariable("Id") Long Id){
 		Usuarios_Modelo usuarios_Modelo = usuarios_Repositorio.findById(Id)
-		.orElseThrow(() -> new ResourceNotFoudException("Usuario No Existe: " + Id));
+		.orElseThrow(() -> new ResourceNotFoundException("Usuario No Existe: " + Id));
 		return ResponseEntity.ok(usuarios_Modelo);
 	}
 	

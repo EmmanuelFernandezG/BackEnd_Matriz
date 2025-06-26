@@ -3,38 +3,32 @@ package com.back.cd.back.cd.Modelo;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "usuarios")
+@javax.persistence.Entity
+@javax.persistence.Table(name = "usuarios")
 public class Usuarios_Modelo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "usuario")
+	@javax.persistence.Column(name = "usuario")
      private String usuario;
 
-	@Column(name = "constrasena")
+	@javax.persistence.Column(name = "constrasena")
     private String constrasena;
 
-	@Column(name = "perfil")
+	@javax.persistence.Column(name = "perfil")
     private String perfil;
 
-	@Column(name = "email")
+	@javax.persistence.Column(name = "email")
     private String email;
 
-	@Column(name = "version")
+	@javax.persistence.Column(name = "version")
     private BigInteger version;
 
 	public long getId() {

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.back.cd.back.cd.Exception.ResourceNotFoudException;
+import com.back.cd.back.cd.Exception.ResourceNotFoundException;
 import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_cd_Repositorio;
 
@@ -38,18 +40,18 @@ public class Matriz_Cd_Controller {
 		return matriz_cd_Repositorio.save(matriz_Control_Documental_Modelo);
 	}
 	
-	@GetMapping("/matrizcd/{id}")
-	public ResponseEntity<Matriz_Control_Documental_Modelo> listaRegporId(@PathVariable Long id){
-		Matriz_Control_Documental_Modelo matriz_Control_Documental_Modelo = matriz_cd_Repositorio.findById(id)
-				.orElseThrow(() -> new ResourceNotFoudException("Registro No Encontrado : " + id) );
+	@GetMapping("/matrizcd/{Id}")
+	public ResponseEntity<Matriz_Control_Documental_Modelo> listaRegporId(@PathVariable("Id") Long Id){
+		Matriz_Control_Documental_Modelo matriz_Control_Documental_Modelo = matriz_cd_Repositorio.findById(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("Registro No Encontrado : " + Id) );
 		return ResponseEntity.ok(matriz_Control_Documental_Modelo);
 		
 	}
 	
-	@PutMapping("/matrizcd/{id}")
-	public ResponseEntity<Matriz_Control_Documental_Modelo> actualizarRegistro(@PathVariable Long Id, @RequestBody Matriz_Control_Documental_Modelo registromodif){
+	@PutMapping("/matrizcd/{Id}")
+	public ResponseEntity<Matriz_Control_Documental_Modelo> actualizarRegistro(@PathVariable("Id") Long Id, @RequestBody Matriz_Control_Documental_Modelo registromodif){
 		Matriz_Control_Documental_Modelo matriz_Control_Documental_Modelo = matriz_cd_Repositorio.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoudException("Registro No Encontrado : " + Id) );
+				.orElseThrow(() -> new ResourceNotFoundException("Registro No Encontrado : " + Id) );
 	 matriz_Control_Documental_Modelo.setFecha_de_recepcion(registromodif.getFecha_de_recepcion());
      matriz_Control_Documental_Modelo.setFecha_inicio(registromodif.getFecha_inicio());
      matriz_Control_Documental_Modelo.setFolio_tt(registromodif.getFolio_tt());
@@ -110,15 +112,20 @@ public class Matriz_Cd_Controller {
      return ResponseEntity.ok(matriz_cd_Repositorio.save(matriz_Control_Documental_Modelo));
 
 	}
-	@DeleteMapping("/matrizcd/{id}")
+	@DeleteMapping("/matrizcd/{Id}")
 	public ResponseEntity<Map<String, Boolean>> eliminarRegistro(@PathVariable Long Id){
 		Matriz_Control_Documental_Modelo matriz_Control_Documental_Modelo = matriz_cd_Repositorio.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoudException("Registro No Encontrado : " + Id) );
+				.orElseThrow(() -> new ResourceNotFoundException("Registro No Encontrado : " + Id) );
 		matriz_cd_Repositorio.delete(matriz_Control_Documental_Modelo);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("delete", Boolean.TRUE);
 		return ResponseEntity.ok(response);
 		
+	}
+	
+	@GetMapping("/matrizcd/nuevapo/{folio_tt}")
+	public List<Matriz_Control_Documental_Modelo> buscarRegistro(@PathVariable("folio_tt") Long folio_tt) {
+	    return matriz_cd_Repositorio.buscarRegistroporfolio(folio_tt);
 	}
 	
 }
