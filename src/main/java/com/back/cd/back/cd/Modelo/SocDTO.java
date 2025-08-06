@@ -1,5 +1,6 @@
 package com.back.cd.back.cd.Modelo;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -17,14 +18,17 @@ public class SocDTO {
     private String unidad_de_negocio;
     private Long no_de_proveedor;
     private LocalDate fecha_de_embarque_de_laoc;
-    private Double monto_de_po;
+    private BigDecimal monto_de_po;
     private String moneda;
+    private String Status_de_embarque;
     private String gerente_de_compras;
     private String confirmador;
     private String proveedor;
     private String pto_directo;
     private String validaciones_extraordinarias;
-
+    private String Liberada_por_matricesString;
+    private String Motivo_matricesString;
+    private LocalDate fecha_matrices;
 }
 
 

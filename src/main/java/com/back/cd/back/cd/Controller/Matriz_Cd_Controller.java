@@ -3,7 +3,9 @@ package com.back.cd.back.cd.Controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back.cd.back.cd.Exception.ResourceNotFoundException;
 import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
+import com.back.cd.back.cd.Modelo.Repositorio.Matriz_ProveedorCambio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_cd_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.Soc_Familia_1Item;
 
 @RestController
 @RequestMapping("/importaciones/controldocumental")
@@ -108,6 +112,7 @@ public class Matriz_Cd_Controller {
      matriz_Control_Documental_Modelo.setHistorial_de_modificacion(registromodif.getHistorial_de_modificacion());
      matriz_Control_Documental_Modelo.setFecha_revision(registromodif.getFecha_revision());
      matriz_Control_Documental_Modelo.setFecha_entrega_compras(registromodif.getFecha_entrega_compras());
+     matriz_Control_Documental_Modelo.setFecha_de_envio(registromodif.getFecha_de_envio());
 
      return ResponseEntity.ok(matriz_cd_Repositorio.save(matriz_Control_Documental_Modelo));
 
@@ -127,5 +132,17 @@ public class Matriz_Cd_Controller {
 	public List<Matriz_Control_Documental_Modelo> buscarRegistro(@PathVariable("folio_tt") Long folio_tt) {
 	    return matriz_cd_Repositorio.buscarRegistroporfolio(folio_tt);
 	}
+
+	@GetMapping("/matrizcd/inicio/{historial_de_modificacion}")
+	public List<Matriz_Control_Documental_Modelo> buscarRegistroporuser(@PathVariable("historial_de_modificacion") String historial_de_modificacion) {
+	    return matriz_cd_Repositorio.buscarRegistroporusuario(historial_de_modificacion);
+	}
+
+	@GetMapping("/cambiobu/{concatenar}")
+		public Optional<Matriz_ProveedorCambio> getProveedor(@PathVariable("concatenar") String concatenar){
+			return matriz_cd_Repositorio.findporBu(concatenar);
+		}
+
+		
+	}
 	
-}

@@ -1,5 +1,6 @@
 package com.back.cd.back.cd.Modelo;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
@@ -30,8 +31,8 @@ public class Soc_Modelo {
      private Integer foliott;
      private String full;
      private String moneda;
-     private Float monto_de_overstock;
-     private Float monto_de_po;
+     private BigDecimal monto_de_overstock;
+     private BigDecimal monto_de_po;
      private Integer no_de_proveedor;
      private Integer nooc;
      private String observaciones;
@@ -141,16 +142,16 @@ public class Soc_Modelo {
 	public void setMoneda(String moneda) {
 		this.moneda = moneda;
 	}
-	public Float getMonto_de_overstock() {
+	public BigDecimal getMonto_de_overstock() {
 		return monto_de_overstock;
 	}
-	public void setMonto_de_overstock(Float monto_de_overstock) {
+	public void setMonto_de_overstock(BigDecimal monto_de_overstock) {
 		this.monto_de_overstock = monto_de_overstock;
 	}
-	public Float getMonto_de_po() {
+	public BigDecimal getMonto_de_po() {
 		return monto_de_po;
 	}
-	public void setMonto_de_po(Float monto_de_po) {
+	public void setMonto_de_po(BigDecimal monto_de_po) {
 		this.monto_de_po = monto_de_po;
 	}
 	public Integer getNo_de_proveedor() {

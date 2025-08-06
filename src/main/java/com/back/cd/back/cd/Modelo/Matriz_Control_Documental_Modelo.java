@@ -1,5 +1,6 @@
 package com.back.cd.back.cd.Modelo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
@@ -80,7 +81,7 @@ public class Matriz_Control_Documental_Modelo {
      private LocalDateTime etd_pi;
 
      @javax.persistence.Column(name = "montopi")
-     private Float montopi;
+     private BigDecimal montopi;
 
      @javax.persistence.Column(name = "moneda")
      private String moneda;
@@ -172,6 +173,9 @@ public class Matriz_Control_Documental_Modelo {
      @javax.persistence.Column(name = "envio_a_proveedor")
      private String envio_a_proveedor;
 
+     @javax.persistence.Column(name = "fecha_de_envio")
+     private LocalDateTime fecha_de_envio;
+     
      @javax.persistence.Column(name = "trial")
      private String trial;
 
@@ -355,11 +359,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.etd_pi = etd_pi;
 	}
 
-	public Float getMontopi() {
+	public BigDecimal getMontopi() {
 		return montopi;
 	}
 
-	public void setMontopi(Float montopi) {
+	public void setMontopi(BigDecimal montopi) {
 		this.montopi = montopi;
 	}
 
@@ -625,6 +629,14 @@ public class Matriz_Control_Documental_Modelo {
 
 	public void setFecha_revision(LocalDateTime fecha_revision) {
 		this.fecha_revision = fecha_revision;
+	}
+
+	public LocalDateTime getFecha_de_envio() {
+		return fecha_de_envio;
+	}
+
+	public void setFecha_de_envio(LocalDateTime fecha_de_envio) {
+		this.fecha_de_envio = fecha_de_envio;
 	}
 
 	public LocalDateTime getFecha_entrega_compras() {
