@@ -30,6 +30,9 @@ public class Usuarios_Modelo {
 	@javax.persistence.Column(name = "version")
     private BigInteger version;
 
+	@javax.persistence.Column(name = "colaboradores")
+    private String colaboradores;
+
 	public long getId() {
 		return id;
 	}
@@ -76,6 +79,14 @@ public class Usuarios_Modelo {
 
 	public void setVersion(BigInteger version) {
 		this.version = version;
+	}
+
+	public String getColaboradores() {
+		return colaboradores;
+	}
+
+	public void setColaboradores(String colaboradores) {
+		this.colaboradores = colaboradores;
 	}
 
 }

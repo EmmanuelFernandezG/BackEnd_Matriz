@@ -78,6 +78,7 @@ public class Soc_Controller {
 	 soc_modelo.setRea(soc_modeloReg.getRea());
 	 soc_modelo.setRecepcion_de_la_proformarp(soc_modeloReg.getRecepcion_de_la_proformarp());
 	 soc_modelo.setStatus_de_embarque(soc_modeloReg.getStatus_de_embarque());
+	 soc_modelo.setReporte_con_problemas(soc_modeloReg.getReporte_con_problemas());
 	 soc_modelo.setStatus_problema(soc_modeloReg.getStatus_problema());
 	 soc_modelo.setUbicacion_en_archivo(soc_modeloReg.getUbicacion_en_archivo());
 	 soc_modelo.setUnidad_de_negocio(soc_modeloReg.getUnidad_de_negocio());

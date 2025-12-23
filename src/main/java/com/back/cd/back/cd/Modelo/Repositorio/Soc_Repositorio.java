@@ -64,7 +64,7 @@ public interface Soc_Repositorio extends JpaRepository<Soc_Modelo, Long> {
 			Optional<Soc_Proveedor> findProveedorByNoProv(@Param("no_proveedor") Integer no_proveedor );
 
 			@Query(value = ""
-					+ " select FamiliaSAP as familia_del_producto, UnidadDeNegocio as unidad_de_negocio from codigos where codigo = :codigo ",
+					+ " select concat(Clave,', Fam: ',FamiliaSAP) as familia_del_producto, UnidadDeNegocio as unidad_de_negocio from codigos where codigo = :codigo ",
 					nativeQuery = true)
 				Optional<Soc_Familia_1Item> findcodigos(@Param("codigo") Integer codigo );
 

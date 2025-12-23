@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back.cd.back.cd.Exception.ResourceNotFoundException;
 import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
+import com.back.cd.back.cd.Modelo.Repositorio.CondicionMatricesBack;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_ProveedorCambio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_cd_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Familia_1Item;
@@ -143,6 +144,12 @@ public class Matriz_Cd_Controller {
 			return matriz_cd_Repositorio.findporBu(concatenar);
 		}
 
+		@GetMapping("/condmatrices/{foliott}/{nooc}")
+		public Optional<CondicionMatricesBack> condicionMatriz(@PathVariable("foliott") Long foliott, @PathVariable("nooc") Long nooc){
+			return matriz_cd_Repositorio.CondicionMatrices(foliott, nooc);
+		}
+
+		
 		
 	}
 	

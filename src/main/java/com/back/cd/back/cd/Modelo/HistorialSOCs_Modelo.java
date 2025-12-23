@@ -29,6 +29,7 @@ public class HistorialSOCs_Modelo {
 	private Long nooc;
 	private String comentarios; 
 	private String unidadde_negocio	;
+	private String usuario;
 	
 	public Long getId() {
 		return id;
@@ -65,6 +66,12 @@ public class HistorialSOCs_Modelo {
 	}
 	public void setUnidadde_negocio(String unidadde_negocio) {
 		this.unidadde_negocio = unidadde_negocio;
+	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	

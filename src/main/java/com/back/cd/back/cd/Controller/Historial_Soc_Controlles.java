@@ -28,7 +28,12 @@ public class Historial_Soc_Controlles {
 	@Autowired
 	
 	public Historial_Soc_Repositorio historial_Soc_Repositorio;
-	
+
+	@GetMapping("/histsoccompleto/") 
+	public List<HistorialSOCs_Modelo> listarHistorialSocTodo(){
+		return historial_Soc_Repositorio.findAll();
+	}
+
 	@GetMapping("/{orden}")
 	public ResponseEntity<List<HistorialSOCs_Modelo>> listarHistporId(@PathVariable("orden") Long nooc) {
 	    List<HistorialSOCs_Modelo> resultados = historial_Soc_Repositorio.buscarporOrden(nooc);

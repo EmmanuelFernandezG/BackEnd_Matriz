@@ -1,17 +1,33 @@
 package com.back.cd.back.cd.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.HandlerMapping;
+
+import com.back.cd.back.cd.Modelo.Historial_Matriz_CD;
+import com.back.cd.back.cd.Exception.ResourceNotFoundException;
+import com.back.cd.back.cd.Modelo.Archivos_Folder_Documentos_Modeo;
+import com.back.cd.back.cd.Modelo.Folders_documentos_Modelo;
+import com.back.cd.back.cd.Modelo.Repositorio.DocumentosSesionesJoin;
+import com.back.cd.back.cd.Modelo.Repositorio.Folders_carpetas_principal_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.documentos_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.historial_MatrizCD_Repositorio;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,71 +40,25 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RequestMapping("/importaciones/documentos")
 public class DocumentosController {
+	@Autowired
+	public documentos_Repositorio docs_repositorio;
 
-    private static final Path BASE_DIR = Paths.get("\\\\cernotes\\Catalogo Truper\\");
+	@Autowired
+	public Folders_carpetas_principal_Repositorio folders_carpetas_principal_Repositorio;
+	
+	
+	@GetMapping("/folders")
+		public List<DocumentosSesionesJoin> consultaFolders() {
+			return docs_repositorio.getSesiones();
+		}
+	
+	@PutMapping("/fechaydur/{Id}")
+	public ResponseEntity<Folders_documentos_Modelo> actualizardatos(@PathVariable("Id") Long Id, @RequestBody Folders_documentos_Modelo folders_documentos_Modelo){
+		Folders_documentos_Modelo foldok = docs_repositorio.findById(Id)
+		.orElseThrow(() -> new ResourceNotFoundException("Registro No Encontrado : " + Id) );
+		foldok.setDuracion(folders_documentos_Modelo.getDuracion());
+		foldok.setFecha_sesion(folders_documentos_Modelo.getFecha_sesion());
+		return ResponseEntity.ok(docs_repositorio.save(folders_documentos_Modelo));
+	}
 
-    @GetMapping("/api/archivos")
-    public ResponseEntity<List<Map<String, Object>>> listarOrganizado() {
-        Map<String, List<Map<String, String>>> agrupado = new HashMap<>();
-
-        try (Stream<Path> paths = Files.walk(BASE_DIR)) {
-            paths.filter(Files::isRegularFile).forEach(path -> {
-                String relativo = BASE_DIR.relativize(path).toString().replace("\\", "/");
-                String nombreArchivo = path.getFileName().toString();
-                String carpeta = relativo.contains("/") ? relativo.substring(0, relativo.lastIndexOf("/")) : "Raíz";
-
-                Map<String, String> archivoInfo = new HashMap<>();
-                archivoInfo.put("nombre", nombreArchivo);
-                archivoInfo.put("relativo", relativo);
-
-                agrupado.computeIfAbsent(carpeta, k -> new ArrayList<>()).add(archivoInfo);
-            });
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-
-        List<Map<String, Object>> resultado = agrupado.entrySet().stream()
-            .map(entry -> {
-                Map<String, Object> carpetaMap = new HashMap<>();
-                carpetaMap.put("carpeta", entry.getKey());
-                carpetaMap.put("archivos", entry.getValue());
-                return carpetaMap;
-            })
-            .collect(Collectors.toList());
-
-        return ResponseEntity.ok(resultado);
-    }
-
-    @GetMapping("/api/archivos/ver/**")
-    public ResponseEntity<Resource> verArchivo(HttpServletRequest request) throws IOException {
-        String rutaRelativa = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-        rutaRelativa = rutaRelativa.replace("/importaciones/documentos/api/archivos/ver/", "");
-
-        Path completo = BASE_DIR.resolve(rutaRelativa).normalize();
-
-        if (!completo.startsWith(BASE_DIR)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
-        if (!Files.exists(completo)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Resource archivo = new UrlResource(completo.toUri());
-        String contentType = Files.probeContentType(completo);
-        MediaType mediaType = MediaType.APPLICATION_OCTET_STREAM;
-
-        try {
-            if (contentType != null) {
-                mediaType = MediaType.parseMediaType(contentType);
-            }
-        } catch (Exception ex) {
-            // Mantener el tipo por defecto si hay error
-        }
-
-        return ResponseEntity.ok()
-                .contentType(mediaType)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + archivo.getFilename() + "\"")
-                .body(archivo);
-    }
 }

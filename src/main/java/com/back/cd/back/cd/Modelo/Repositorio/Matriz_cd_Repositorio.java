@@ -33,4 +33,10 @@ public interface Matriz_cd_Repositorio extends JpaRepository<Matriz_Control_Docu
 	nativeQuery = true)
 	Optional<Matriz_ProveedorCambio> findporBu(@Param("concatenar") String concatenar);
 		
+	@Query(value = ""
+		+ " SELECT  COALESCE((select comentarios from matriz_cd.pool where pi in(:foliott, :nooc) limit 1), Null) as motivo_matrices, "
+		+ "COALESCE((select status_de_liberacion from matriz_cd.pool where pi in(:foliott, :nooc) limit 1), Null) as liberada_por_matrices ",	
+		nativeQuery = true)
+	Optional<CondicionMatricesBack> CondicionMatrices(@Param("foliott") Long foliott, @Param("nooc") Long nooc);
+	
 }
