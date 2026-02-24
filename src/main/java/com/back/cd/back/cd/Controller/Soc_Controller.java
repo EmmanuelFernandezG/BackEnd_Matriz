@@ -1,6 +1,9 @@
 package com.back.cd.back.cd.Controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +50,31 @@ public class Soc_Controller {
 	}
 	
 	@PostMapping("/seguimientooc/nuevaPO")
-	public Soc_Modelo crearRegistro(@RequestBody Soc_Modelo soc_Modelo) {
-		return soc_Repositorio.save(soc_Modelo);
+	public ResponseEntity<Map<String, Object>> crearRegistro(@RequestBody List<Soc_Modelo> lista){
+		List<Integer> foliosFallidos= new ArrayList<>();
+		List<Integer> foliosExitosos=new ArrayList<>();
+		//int insertadosExitosos=0;
+		for(Soc_Modelo soc: lista) {
+			if(soc_Repositorio.findByFoliott(soc.getFoliott()).isPresent()){
+	            foliosFallidos.add(soc.getFoliott());
+	        }else{
+	            try{
+	            	//Soc_Modelo guardado=
+	            	soc_Repositorio.save(soc);
+	                foliosExitosos.add(soc.getFoliott());
+	                //insertadosExitosos++;
+	            }catch (Exception e){
+	                foliosFallidos.add(soc.getFoliott()); //----------
+	            }
+	        }
+		}
+		Map<String, Object> respuesta = new HashMap<>();
+	    //respuesta.put("exitosos", insertadosExitosos);
+		respuesta.put("exitosos", foliosExitosos);
+	    respuesta.put("rechazados", foliosFallidos);
+	    //respuesta.put("datosParaTabla", lista);
+	    return ResponseEntity.ok(respuesta);
 	}
-
 	@PutMapping("/seguimientooc/modPO/{Id}")
 	public ResponseEntity<Soc_Modelo> actualizarRegSOc(@PathVariable("Id") Long Id, @RequestBody Soc_Modelo soc_modeloReg){
 		Soc_Modelo soc_modelo = soc_Repositorio.findById(Id)

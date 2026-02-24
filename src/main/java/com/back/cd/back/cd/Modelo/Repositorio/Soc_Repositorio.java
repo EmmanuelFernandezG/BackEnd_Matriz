@@ -47,7 +47,10 @@ public interface Soc_Repositorio extends JpaRepository<Soc_Modelo, Long> {
 		    + " WHERE socs.foliott = :folio_tt",
 		    nativeQuery = true)
 		List<SocProjection> crearMzporfolio(@Param("folio_tt") Long folio_tt);
+	
+	Optional<Soc_Modelo> findByFoliott(Integer foliott);
 
+	
 	@Query(value = ""
 			+ " SELECT socs.*, lp.descripcion_cond_pago as terminos_de_pago, lp.supplier as proveedor " 
            + " FROM matriz_cd.socs socs " 
