@@ -116,7 +116,12 @@ public class service {
 	    directosRepository.deleteAllInBatch();
 	    List<directos> listaDirectos = new ArrayList<>();
 
-	    for (int i = 3; i <= sheet.getLastRowNum(); i++) {
+	    /*Row filaTitulos = sheet.getRow(1); 
+	    for (int c = 0; c < filaTitulos.getLastCellNum(); c++) {
+	        System.out.println("indice [" + c + "]: " + getCellValue(filaTitulos.getCell(c)));
+	    }*/
+	    
+	    for (int i = 2; i <= sheet.getLastRowNum(); i++) {
 	        Row fila = sheet.getRow(i);
 	        if (fila == null || getCellValue(fila.getCell(0)).isEmpty()) break;
 
@@ -129,28 +134,27 @@ public class service {
 	        d.setFamilia(getCellValue(fila.getCell(4)));
 	        d.setCe(getCellValue(fila.getCell(5)));
 	        d.setDailymrpsale(getFloat(fila.getCell(6)));
-	        d.setTotal_disponible_pcs(getInt(fila.getCell(7)));
-	        d.setTotal_disponible_days(getInt(fila.getCell(8)));
-	        d.setPo_pm(getInt(fila.getCell(9)));
-	        d.setPo_th(getInt(fila.getCell(10)));
-	        d.setFull_consol(getCellValue(fila.getCell(11)));
-	        d.setStatus_confirmacion(getCellValue(fila.getCell(12)));
+	        d.setTotal_disponible_pcs(getInt(fila.getCell(13)));
+	        d.setTotal_disponible_days(getInt(fila.getCell(14)));
+	        d.setPo_pm(getInt(fila.getCell(15)));
+	        d.setPo_th(getInt(fila.getCell(16)));
+	        d.setFull_consol(getCellValue(fila.getCell(18)));
+	        d.setStatus_confirmacion(getCellValue(fila.getCell(19)));
 
 	        // Fechas
-	        d.setOpen_purchase_ordersetd(getDate(fila.getCell(13)));
-	        d.setOpen_purchase_orderseta(getDate(fila.getCell(14)));
-	        d.setPo_qty(getInt(fila.getCell(15)));
-	        d.setPo_days(getInt(fila.getCell(16)));
-	        d.setSs_days(getInt(fila.getCell(17)));
-	        d.setIda(getInt(fila.getCell(18)));
-	        d.setOver_stock(getFloat(fila.getCell(19)));
-	        d.setAlt_vendor(getCellValue(fila.getCell(20)));
-	        d.setContenedor(getCellValue(fila.getCell(21)));
-	        d.setFactura(getCellValue(fila.getCell(22)));
-	        d.setSar2(getCellValue(fila.getCell(23)));
-	        d.setDirecto(getCellValue(fila.getCell(24)));
-	        d.setPod(getCellValue(fila.getCell(25)));
-
+	        d.setOpen_purchase_ordersetd(getDate(fila.getCell(20)));
+	        d.setOpen_purchase_orderseta(getDate(fila.getCell(21)));
+	        d.setPo_qty(getInt(fila.getCell(24)));
+	        d.setPo_days(getInt(fila.getCell(27)));
+	        d.setSs_days(getInt(fila.getCell(28)));
+	        d.setIda(getInt(fila.getCell(29)));
+	        d.setOver_stock(getFloat(fila.getCell(36)));
+	        d.setAlt_vendor(getCellValue(fila.getCell(38)));
+	        d.setContenedor(getCellValue(fila.getCell(39)));
+	        d.setFactura(getCellValue(fila.getCell(40)));
+	        d.setSar2(getCellValue(fila.getCell(41)));
+	        d.setDirecto(getCellValue(fila.getCell(42)));
+	        d.setPod(getCellValue(fila.getCell(43)));
 	        listaDirectos.add(d);
 
 	        if (listaDirectos.size() >= 500) {
@@ -162,31 +166,28 @@ public class service {
 	        directosRepository.saveAll(listaDirectos);
 	    }
 	}
+	
 	@Transactional
 	public void actualizarPool() throws Exception{
 		IOUtils.setByteArrayMaxOverride(200_000_000);
 		String ruta = "\\\\Cernotes\\Matrices de Precio\\6_Reportes de PIs\\Reporte de PI's pool de Matrices.xlsx";
 	    Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
-	    Sheet sheet = wb.getSheetAt(0);
+	    Sheet sheet = wb.getSheetAt(0);	    
 	    poolRepository.deleteAllInBatch();
 	    List<pool> listaPool = new ArrayList<>();
 	    
 	    for (int i = 3; i <= sheet.getLastRowNum(); i++) {
-	    	
 	    	 try {
-
 	    	        Row fila = sheet.getRow(i);
 	    	        if (fila == null) {
 	    	            continue;
 	    	        }
-
 	    	        String valorF = getCellValue(fila.getCell(5));
 	    	        String valorK = getCellValue(fila.getCell(10));
 
 	    	        if (valorF.isEmpty() || valorK.isEmpty()) {
 	    	            continue;
 	    	        }
-
 	        pool p = new pool();
 	        
 	        p.setRecibidas_en_el_dia(getCellValue(fila.getCell(0)));
@@ -217,12 +218,48 @@ public class service {
 	            listaPool.clear();
 	        }
 	    }
+	    for (int j = 0; j < 6; j++) {
+	        pool extra = new pool();
+	        
+	        extra.setRecibidas_en_el_dia("manual");
+	        
+	        extra.setPi(0);
+	        extra.setBu("BU");
+	        if (j == 0) {
+	        	extra.setPi(8243939);
+	        }else if (j == 1) {
+	        	extra.setPi(8244637);
+			}else if (j == 2) {
+	        	extra.setPi(8245108);
+			}else if (j == 3) {
+	        	extra.setPi(8245140);				
+			}else if (j == 4) {
+	        	extra.setPi(8245479);								
+			}else if (j == 5) {
+				extra.setPi(8245222);
+			}
+        	extra.setNo_de_proveedor("727844");				
+	        extra.setProveedor("Prov Gen");
+	        extra.setOpen_purchase_orders_etd("2026-01-01");
+	        extra.setUrgente("NO");
+	        extra.setIda("1");
+	        extra.setStatus_de_liberacion("OK");
+	        extra.setComentarios("Registro agregado manual");
+	        extra.setFecha_de_liberacion_rechazo("2026-01-01");
+	        extra.setSeg_ctrl_doc("DOC");
+	        extra.setLiberada_por("SYSTEM");
+	        extra.setAnomalias("");
+	        extra.setStatus_matriz_dias_transcurridos("0");
+
+	        listaPool.add(extra);
+	    }
+	    
+	    
 	    if (!listaPool.isEmpty()) {
 	        poolRepository.saveAll(listaPool);
 	    }
 	    wb.close();
 	}
-	
 	//contactos
 	@Transactional
 	public void actualizarContactos() throws Exception{
@@ -342,10 +379,17 @@ public class service {
                 	c.setClvFamSAP(getCellValue(fila.getCell(3)));
                 	c.setFamiliaSAP(getCellValue(fila.getCell(4)));
                 	c.setMarcaComercial(getCellValue(fila.getCell(5)));
+                	c.setContactos(getCellValue(fila.getCell(6)));                	
+                    c.setUnidadDeNegocio(getCellValue(fila.getCell(7))); 
+                	
                 	}else {
-                        c.setCodigo(getInt(fila.getCell(0)));
-                        c.setClave(getCellValue(fila.getCell(1)));
-                        c.setDescripcion(getCellValue(fila.getCell(2))); 
+                    	c.setCodigo(getInt(fila.getCell(0)));
+                    	c.setClave(getCellValue(fila.getCell(1)));
+                    	c.setDescripcion(getCellValue(fila.getCell(2)));
+                    	c.setClvFamSAP(getCellValue(fila.getCell(0)));
+                    	c.setFamiliaSAP(getCellValue(fila.getCell(1)));
+                    	c.setMarcaComercial(getCellValue(fila.getCell(8)));
+                    	c.setContactos(getCellValue(fila.getCell(9)));                	
                         c.setUnidadDeNegocio(getCellValue(fila.getCell(8))); 
                 	}
                 	listaCodigos.add(c);
