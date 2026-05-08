@@ -37,6 +37,7 @@ public class Soc_Log_Controller {
 		    }
 		    return socsRepository.obtenerDataTabla(usuario);
 	    }
+		
 		@PostMapping("/new_log")
 		public socs_log_modelo guardarregistro(@RequestBody socs_log_modelo socs_log_modelo) {
 			return socs_log_repositorio.save(socs_log_modelo);

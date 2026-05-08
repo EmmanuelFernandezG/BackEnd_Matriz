@@ -40,6 +40,14 @@ public class socs_log_modelo {
 	@Column(name = "asistentepos")
     private String asistentepos;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getNopo() {
 		return nopo;
 	}

@@ -1,7 +1,7 @@
 package com.back.cd.back.cd.Modelo;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -75,7 +75,7 @@ public class Matriz_Control_Documental_Modelo {
      private String etd;
 
      @javax.persistence.Column(name = "etd_po")
-     private LocalDateTime etd_po;
+     private LocalDate etd_po;
 
      @javax.persistence.Column(name = "etd_pi")
      private LocalDateTime etd_pi;
@@ -343,11 +343,11 @@ public class Matriz_Control_Documental_Modelo {
 		this.etd = etd;
 	}
 
-	public LocalDateTime getEtd_po() {
+	public LocalDate getEtd_po() {
 		return etd_po;
 	}
 
-	public void setEtd_po(LocalDateTime etd_po) {
+	public void setEtd_po(LocalDate etd_po) {
 		this.etd_po = etd_po;
 	}
 
