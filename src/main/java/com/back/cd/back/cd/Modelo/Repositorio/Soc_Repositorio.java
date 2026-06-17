@@ -93,6 +93,8 @@ public interface Soc_Repositorio extends JpaRepository<Soc_Modelo, Long> {
 		            "s.unidad_de_negocio AS unidadDeNegocio, " +
 		            "c.gte_responsable_bu AS gerente, " +
 		            "s.rea AS rea, " +
+		            "s.reimp AS reimp, "+
+		            "s.fecha_de_emisionrea AS fecha_revisado"+
 		            "s.fecha_de_emisionoc AS fechaEmision, " +
 		            "ld.autorizacionPrevia AS autorizacionPrevia, "+
 		            "s.fecha_de_emisionoc AS fechaInicial, " +

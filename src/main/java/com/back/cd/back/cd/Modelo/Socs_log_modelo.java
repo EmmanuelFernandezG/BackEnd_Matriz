@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="socs_log")
-public class socs_log_modelo {
+public class Socs_log_modelo{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,6 +39,27 @@ public class socs_log_modelo {
 
 	@Column(name = "asistentepos")
     private String asistentepos;
+	
+	@Column(name="fecha_reciboctrl")
+	private LocalDate fecha_reciboctrl;
+	@Column(name="fecha_recibo_log")
+	private String fecha_recibo_log;
+
+	public String getFecha_recibo_log() {
+		return fecha_recibo_log;
+	}
+
+	public void setFecha_recibo_log(String fecha_recibo_log) {
+		this.fecha_recibo_log = fecha_recibo_log;
+	}
+
+	public LocalDate getFecha_reciboctrl() {
+		return fecha_reciboctrl;
+	}
+
+	public void setFecha_reciboctrl(LocalDate fecha_reciboctrl) {
+		this.fecha_reciboctrl = fecha_reciboctrl;
+	}
 
 	public Long getId() {
 		return id;

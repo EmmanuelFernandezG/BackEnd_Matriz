@@ -53,7 +53,7 @@ public class service {
 		String ruta="\\\\cernotes\\A_Apoyo Sistema\\Lista Proveedores Dirección Importaciones.xlsx";
 		Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
         Sheet sheet = wb.getSheetAt(0);
-        proveedoresRepository.deleteAllInBatch();
+        proveedoresRepository.Truncarlistaproveedores();
         List<listaProveedores> listaProv = new ArrayList<>();
 
         //for (int i=ultimaFila; i>=0; i--) {
@@ -113,7 +113,7 @@ public class service {
 	    String ruta = "\\\\Cernotes\\SEGUIMIENTO ORDENES DE COMPRA IMPORTS\\PO directos.xlsx";
 	    Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
 	    Sheet sheet = wb.getSheetAt(0);
-	    directosRepository.deleteAllInBatch();
+	    directosRepository.Truncardirectos();
 	    List<directos> listaDirectos = new ArrayList<>();
 
 	    /*Row filaTitulos = sheet.getRow(1); 
@@ -173,7 +173,7 @@ public class service {
 		String ruta = "\\\\Cernotes\\Matrices de Precio\\6_Reportes de PIs\\Reporte de PI's pool de Matrices.xlsx";
 	    Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
 	    Sheet sheet = wb.getSheetAt(0);	    
-	    poolRepository.deleteAllInBatch();
+	    poolRepository.Truncarpool();
 	    List<pool> listaPool = new ArrayList<>();
 	    
 	    for (int i = 3; i <= sheet.getLastRowNum(); i++) {
@@ -184,7 +184,7 @@ public class service {
 	    	        }
 	    	        String valorF = getCellValue(fila.getCell(5));
 	    	        String valorK = getCellValue(fila.getCell(10));
-
+ 
 	    	        if (valorF.isEmpty() || valorK.isEmpty()) {
 	    	            continue;
 	    	        }
@@ -218,42 +218,37 @@ public class service {
 	            listaPool.clear();
 	        }
 	    }
-	    for (int j = 0; j < 6; j++) {
+	    String rutaExtra="\\\\cernotes\\SEGUIMIENTO ORDENES DE COMPRA IMPORTS\\Matr\\pool Extra data.xlsx";
+	    Workbook wbExtra = WorkbookFactory.create(new FileInputStream(rutaExtra));
+	    Sheet sheetExtra = wbExtra.getSheetAt(0);
+	    
+	    //fila2
+	    for (int j = 1; j <= sheetExtra.getLastRowNum(); j++) {
+	    	Row filaExtra = sheetExtra.getRow(j);
+            if (filaExtra == null) continue;
+	        int piDelExcel = getInt(filaExtra.getCell(0));
 	        pool extra = new pool();
 	        
 	        extra.setRecibidas_en_el_dia("manual");
 	        
-	        extra.setPi(0);
+	        extra.setPi(piDelExcel);
 	        extra.setBu("BU");
-	        if (j == 0) {
-	        	extra.setPi(8243939);
-	        }else if (j == 1) {
-	        	extra.setPi(8244637);
-			}else if (j == 2) {
-	        	extra.setPi(8245108);
-			}else if (j == 3) {
-	        	extra.setPi(8245140);				
-			}else if (j == 4) {
-	        	extra.setPi(8245479);								
-			}else if (j == 5) {
-				extra.setPi(8245222);
-			}
         	extra.setNo_de_proveedor("727844");				
 	        extra.setProveedor("Prov Gen");
 	        extra.setOpen_purchase_orders_etd("2026-01-01");
 	        extra.setUrgente("NO");
 	        extra.setIda("1");
-	        extra.setStatus_de_liberacion("OK");
+	        extra.setStatus_de_liberacion("N/A");
 	        extra.setComentarios("Registro agregado manual");
 	        extra.setFecha_de_liberacion_rechazo("2026-01-01");
 	        extra.setSeg_ctrl_doc("DOC");
 	        extra.setLiberada_por("SYSTEM");
 	        extra.setAnomalias("");
 	        extra.setStatus_matriz_dias_transcurridos("0");
-
+ 
 	        listaPool.add(extra);
+	        
 	    }
-	    
 	    
 	    if (!listaPool.isEmpty()) {
 	        poolRepository.saveAll(listaPool);
@@ -267,7 +262,7 @@ public class service {
 		Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
         Sheet sheetCompradores = wb.getSheet("Compradores");
         Sheet sheetPlaneadores= wb.getSheet("Planeadores");
-        contactosRepository.deleteAllInBatch();
+        contactosRepository.Truncarcontactos();
         List<contactos> listaContactos = new ArrayList<>();
         // BUSCARV: Grupo de planeadores (Columna B)  Gerente C, Planeador F
         for (int i=1; i <= sheetCompradores.getLastRowNum(); i++) {
@@ -317,7 +312,7 @@ public class service {
 	    
 		Workbook wb = WorkbookFactory.create(new FileInputStream(archivoE));
         Sheet sheet = wb.getSheetAt(0);
-        wkshRepository.deleteAllInBatch();
+        wkshRepository.Truncarwksh();
         
         List<wksh> listaWksh = new ArrayList<>();
         for(int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -350,7 +345,7 @@ public class service {
 	
 	@Transactional
 	public void actualizarCodigos() throws Exception{
-		codigosRepository.deleteAllInBatch();
+		codigosRepository.Truncarcodigos();
 		
 		String rutas[]={"\\\\cernotes\\A_Apoyo Sistema\\Lista Codigos Direccion Importaciones.xls",
 				"\\\\cernotes\\A_Apoyo Sistema\\Listado Codigos Refacciones.xlsm"};
@@ -407,7 +402,7 @@ public class service {
 	@Transactional
 	public void actualizarPrecios() throws Exception {
 	    IOUtils.setByteArrayMaxOverride(200_000_000);
-	    preciosRepository.deleteAllInBatch();
+	    preciosRepository.Truncarprecios();
 	    String[] nombresBase = {"Lista de precios ", "Lista de precios Refacciones "};
 	    for (int listado = 0; listado < nombresBase.length; listado++) {
 	        String nom = nombresBase[listado];

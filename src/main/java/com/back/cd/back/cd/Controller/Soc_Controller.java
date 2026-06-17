@@ -18,15 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.cd.back.cd.Exception.ResourceNotFoundException;
+import com.back.cd.back.cd.Modelo.AsignacionDTO;
 import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
 import com.back.cd.back.cd.Modelo.SocDTO;
 import com.back.cd.back.cd.Modelo.Soc_Modelo;
+import com.back.cd.back.cd.Modelo.Socs_log_modelo;
 import com.back.cd.back.cd.Modelo.Repositorio.ContactosSoc;
 import com.back.cd.back.cd.Modelo.Repositorio.SocProjection;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Familia_1Item;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Nuevos;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Proveedor;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.Socs_log_repositorio;
 
 @RestController
 @RequestMapping("/importaciones/controldocumental")
@@ -34,6 +37,8 @@ import com.back.cd.back.cd.Modelo.Repositorio.Soc_Repositorio;
 public class Soc_Controller {
 	@Autowired
 	private Soc_Repositorio soc_Repositorio;
+	@Autowired
+	private	Socs_log_repositorio socs_log_repositorio;
 	
 	@GetMapping("/soccompleto/") 
 	public List<Soc_Modelo> listarSocTodo(){
@@ -75,6 +80,24 @@ public class Soc_Controller {
 	    //respuesta.put("datosParaTabla", lista);
 	    return ResponseEntity.ok(respuesta);
 	}
+
+	@PutMapping("/seguimientooc/asignacionuser")
+	public ResponseEntity<String> actualizarUser(@RequestBody AsignacionDTO dto) {
+
+	    List<Soc_Modelo> registros = soc_Repositorio.findAllById(dto.getIds());
+	    registros.forEach(r ->
+	        r.setAsistentepos(dto.getAsistentepos())
+	    );
+	    soc_Repositorio.saveAll(registros);	    
+	    List<Socs_log_modelo> logs = socs_log_repositorio.findAllById(dto.getIdsplog());
+	    logs.forEach(l ->
+	        l.setAsistentepos(dto.getAsistentepos())
+	    );
+	    socs_log_repositorio.saveAll(logs);
+
+	    return ResponseEntity.ok("Actualizados");
+	}
+	
 	@PutMapping("/seguimientooc/modPO/{Id}")
 	public ResponseEntity<Soc_Modelo> actualizarRegSOc(@PathVariable("Id") Long Id, @RequestBody Soc_Modelo soc_modeloReg){
 		Soc_Modelo soc_modelo = soc_Repositorio.findById(Id)

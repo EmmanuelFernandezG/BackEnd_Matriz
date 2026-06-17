@@ -45,6 +45,13 @@ public class Soc_Modelo {
      private String status_problema;
      private String ubicacion_en_archivo;
      private String unidad_de_negocio;
+     private String reimp;
+	public String getReimp() {
+		return reimp;
+	}
+	public void setReimp(String reimp) {
+		this.reimp = reimp;
+	}
 	public Long getId() {
 		return id;
 	}

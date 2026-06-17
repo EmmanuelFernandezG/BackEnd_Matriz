@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
-import com.back.cd.back.cd.Modelo.socs_log_modelo;
+import com.back.cd.back.cd.Modelo.Socs_log_modelo;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.SocProjection;
 
@@ -25,7 +25,7 @@ public class Soc_Log_Controller {
 		@Autowired
 	    private Soc_Repositorio socsRepository;
 		@Autowired
-		private com.back.cd.back.cd.Modelo.Repositorio.socs_log_repositorio socs_log_repositorio;
+		private com.back.cd.back.cd.Modelo.Repositorio.Socs_log_repositorio socs_log_repositorio;
 		
 		@GetMapping("/socs")
 //		public List<socsProjection> verTabla() {
@@ -39,7 +39,7 @@ public class Soc_Log_Controller {
 	    }
 		
 		@PostMapping("/new_log")
-		public socs_log_modelo guardarregistro(@RequestBody socs_log_modelo socs_log_modelo) {
+		public Socs_log_modelo guardarregistro(@RequestBody Socs_log_modelo socs_log_modelo) {
 			return socs_log_repositorio.save(socs_log_modelo);
 		}
 
@@ -50,14 +50,14 @@ public class Soc_Log_Controller {
 	    }
 		
 		@GetMapping("/log-all")
-		public List<socs_log_modelo> obtenerTodosLosLogs() {
+		public List<Socs_log_modelo> obtenerTodosLosLogs() {
 		    return socs_log_repositorio.findAll();
 		}
 		
 		@PutMapping("/guardar")
-		public ResponseEntity<?> guardarOActualizar(@RequestBody socs_log_modelo socs_log_modelo) {
+		public ResponseEntity<?> guardarOActualizar(@RequestBody Socs_log_modelo socs_log_modelo) {
 	        try {
-	            socs_log_modelo guardado = socs_log_repositorio.save(socs_log_modelo);
+	            Socs_log_modelo guardado = socs_log_repositorio.save(socs_log_modelo);
 	            return ResponseEntity.ok(guardado);
 	        } catch (Exception e) {
 	            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
