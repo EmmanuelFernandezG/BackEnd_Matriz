@@ -550,10 +550,10 @@ public class service {
 	@Transactional
 	public void actualizarTPPM() throws Exception{
 		tp_pm_Repository.Truncartppm();
-		String rutas= "\\\\cernotes\\Formatos Vigentes-PARCELMOBI\\FORMATO REVISADOS.xlsm";
+		String rutas= "\\\\cernotes\\Publico\\Z_FormatoTEST\\TST Rev\\BaseCalc.xlsm";
 			String rutaActual=rutas;
 			Workbook wb = WorkbookFactory.create(new FileInputStream(rutaActual));
-		    Sheet sheet = wb.getSheet("TP PO's");
+		    Sheet sheet = wb.getSheet("Hoja1");
 		    List<Tppm_Modelo> tppm_modelo= new ArrayList<>();
 		    for (int j = 2; j <= sheet.getLastRowNum(); j++) {
                 Row fila = sheet.getRow(j);
