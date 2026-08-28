@@ -1,5 +1,7 @@
 package com.back.cd.back.cd.Modelo;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +23,56 @@ public class Control_PIs_Modelo {
 	private String precio;
 	private String etd;
 	private String comentarios;
+	private LocalDate fechainicial;
+	private LocalDate fecharegistr;
+	private LocalDate fecharev;
+	private LocalDate fechainicialcompras;
+	private LocalDate fechafinalcompras;
+	private LocalDate finicialplan;
+	private LocalDate ffinalplan;
 	
+	public LocalDate getFecharev() {
+		return fecharev;
+	}
+	public void setFecharev(LocalDate fecharev) {
+		this.fecharev = fecharev;
+	}
+	public LocalDate getFechainicialcompras() {
+		return fechainicialcompras;
+	}
+	public void setFechainicialcompras(LocalDate fechainicialcompras) {
+		this.fechainicialcompras = fechainicialcompras;
+	}
+	public LocalDate getFechafinalcompras() {
+		return fechafinalcompras;
+	}
+	public void setFechafinalcompras(LocalDate fechafinalcompras) {
+		this.fechafinalcompras = fechafinalcompras;
+	}
+	public LocalDate getFinicialplan() {
+		return finicialplan;
+	}
+	public void setFinicialplan(LocalDate finicialplan) {
+		this.finicialplan = finicialplan;
+	}
+	public LocalDate getFfinalplan() {
+		return ffinalplan;
+	}
+	public void setFfinalplan(LocalDate ffinalplan) {
+		this.ffinalplan = ffinalplan;
+	}
+	public LocalDate getFecharegistr() {
+		return fecharegistr;
+	}
+	public void setFecharegistr(LocalDate fecharegistr) {
+		this.fecharegistr = fecharegistr;
+	}
+	public LocalDate getFechainicial() {
+		return fechainicial;
+	}
+	public void setFechainicial(LocalDate fechainicial) {
+		this.fechainicial = fechainicial;
+	}
 	public String getComentarios() {
 		return comentarios;
 	}
