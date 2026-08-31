@@ -148,6 +148,22 @@ public class Actualizar_Bases_Controller {
         }
 	}
 	
+	@PostMapping("/actualizar/planta")
+	public ResponseEntity<Map<String, Object>> actualizarPlanta(){
+		Map<String, Object> respuesta = new HashMap<>();
+        try {
+            mService.actualizarBufferPlanta();
+            mService.actualizarCodigosPlaneador();
+            mService.actualizarContactosPlanta();
+            respuesta.put("message", "Tablas (buffer_planta,codigos_planeador, contactos_planta) actualizadas con éxito");
+            return ResponseEntity.ok(respuesta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.put("message", "Error al actualizar tabla: " + e.getMessage());
+            return ResponseEntity.internalServerError().body(respuesta);
+        }
+	}
+	
 	@GetMapping("/matrizcalculadoraall")
 	public List<MatrizCalculadora_Modelo> listarmatcalc(){
 		return matriz_Calculadora_Repositorio.findAll();

@@ -22,9 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.back.cd.back.cd.Modelo.Arancel_Modelo;
+import com.back.cd.back.cd.Modelo.Codigos_Planeador_Modelo;
+import com.back.cd.back.cd.Modelo.Contactos_Planta_Modelo;
 import com.back.cd.back.cd.Modelo.Fabricas_Modelo;
 import com.back.cd.back.cd.Modelo.MatrizCalculadora_Modelo;
 import com.back.cd.back.cd.Modelo.Tppm_Modelo;
+import com.back.cd.back.cd.Modelo.bufferPlanta_Modelo;
 import com.back.cd.back.cd.Modelo.codigos;
 import com.back.cd.back.cd.Modelo.contactos;
 import com.back.cd.back.cd.Modelo.directos;
@@ -33,9 +36,12 @@ import com.back.cd.back.cd.Modelo.pool;
 import com.back.cd.back.cd.Modelo.precios;
 import com.back.cd.back.cd.Modelo.wksh;
 import com.back.cd.back.cd.Modelo.Repositorio.Arancel_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.Codigos_Planeador_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.Contactos_Planta_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Fabricas_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_Calculadora_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Tp_Pm_Repository;
+import com.back.cd.back.cd.Modelo.Repositorio.bufferPlanta_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.preciosRepository;
 
 
@@ -63,6 +69,12 @@ public class service {
 	private Tp_Pm_Repository tp_pm_Repository;
 	@Autowired
 	private Matriz_Calculadora_Repositorio matriz_Calculadora_Repositorio;
+	@Autowired
+	private bufferPlanta_Repositorio bufferPlanta_Repositorio;
+	@Autowired
+	private Codigos_Planeador_Repositorio codigos_Planeador_Repositorio;
+	@Autowired
+	private Contactos_Planta_Repositorio contactos_Planta_Repositorio;
 	
 	@Transactional
 	public void actualizarArancel() throws Exception{
@@ -144,7 +156,6 @@ public class service {
 	@Transactional
 	public void actualizarProveedores() throws Exception{
 		IOUtils.setByteArrayMaxOverride(200_000_000);
-		//\\cernotes\A_Apoyo Sistema\Lista Proveedores Dirección Importaciones.xlsx
 		String ruta="\\\\cernotes\\A_Apoyo Sistema\\Lista Proveedores Dirección Importaciones.xlsx";
 		Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
         Sheet sheet = wb.getSheetAt(0);
@@ -628,6 +639,153 @@ public class service {
 	
 	}
 
+	@Transactional 
+	public void actualizarBufferPlanta() throws Exception{
+		IOUtils.setByteArrayMaxOverride(200_000_000);
+		File archivo = null;
+		for(int d=0; d<10; d++) {
+			String fecha = java.time.LocalDate.now().minusDays(d).format(java.time.format.DateTimeFormatter.ofPattern("ddMMyyyy"));
+			String ruta="\\\\cernotes\\Publico\\comparte\\Planeacion\\Buffer 2019\\Informe Buffer " +fecha+".xlsx";
+			File archivoO = new File(ruta);
+            if (archivoO.exists()) {
+                archivo = archivoO;
+                break;
+            }
+		}
+		
+		try (InputStream is = new FileInputStream(archivo);
+	             Workbook wb = WorkbookFactory.create(is)) {
+	    Sheet sheet = wb.getSheetAt(0);
+	    bufferPlanta_Repositorio.TruncarBufferPlanta();
+	    
+	    List<bufferPlanta_Modelo> bufferPlanta = new ArrayList<>();
+        for(int i=3; i <= sheet.getLastRowNum(); i++) {
+        	Row fila= sheet.getRow(i);
+        	
+        	bufferPlanta_Modelo bp=new bufferPlanta_Modelo();
+        	bp.setPlanta(getCellValue(fila.getCell(0)));
+        	bp.setPlaneador(getCellValue(fila.getCell(1)));
+        	bp.setProveedor(getCellValue(fila.getCell(2)));
+        	bp.setCodigo(getInt(fila.getCell(3)));
+        	bp.setClave(getCellValue(fila.getCell(4))); 
+        	bp.setExclusiva_materia_prima(getCellValue(fila.getCell(5)));
+        	bp.setFamilia(getCellValue(fila.getCell(6))); 
+        	bp.setTipo_orden(getCellValue(fila.getCell(7)));
+        	bp.setVar_fsct(getCellValue(fila.getCell(8)));
+        	bp.setInv_disp_piezas(getInt(fila.getCell(9)));
+        	bp.setInv_disp_dias(getInt(fila.getCell(10)));
+        	bp.setPiezas(getInt(fila.getCell(11)));
+        	bp.setDias_consumo(getInt(fila.getCell(12)));
+        	bp.setSs(getInt(fila.getCell(13)));
+        	bp.setTotal_dias(getInt(fila.getCell(14)));
+        	bp.setPcd(getInt(fila.getCell(15)));
+        	bp.setAlm_07_piezas(getInt(fila.getCell(16)));
+        	bp.setAlm_07_dias(getInt(fila.getCell(17)));
+        	bp.setPo(getCellValue(fila.getCell(18)));
+        	bp.setPo_th(getCellValue(fila.getCell(19)));
+        	bp.setSar(getCellValue(fila.getCell(20)));
+        	bp.setFc(getCellValue(fila.getCell(21)));
+        	bp.setEstatus_confirmacion(getCellValue(fila.getCell(22)));
+        	bp.setEtd(getDate(fila.getCell(23)));
+        	bp.setEta(getDate(fila.getCell(24)));       	
+            bp.setSd_vs_pi(getCellValue(fila.getCell(25)));
+            
+            String valorCantidad= getCellValue(fila.getCell(26));
+            if(valorCantidad.isEmpty()) {
+            	bp.setFilaAmarilla("Amarillo");
+            	bp.setCantidad(getCellValue(fila.getCell(26)));
+            }else {
+            	bp.setFilaAmarilla("Blanco");
+            	bp.setCantidad(getCellValue(fila.getCell(26)));
+            }
+            bp.setCob_real(getCellValue(fila.getCell(27)));
+            bp.setCob_plan(getCellValue(fila.getCell(28)));
+            bp.setVar_dias_lt(getCellValue(fila.getCell(29)));
+            bp.setIdB(getCellValue(fila.getCell(30)));
+            bp.setIda(getInt(fila.getCell(31)));
+            bp.setPa(getCellValue(fila.getCell(32)));
+            bp.setPico_teorico(getCellValue(fila.getCell(33)));
+            bp.setProv(getCellValue(fila.getCell(34)));
+            bp.setOrden_sugerida(getCellValue(fila.getCell(35)));
+            bp.setFecha_emision_po(getDate(fila.getCell(36)));
+            bp.setFecha_embarque(getDate(fila.getCell(37)));
+            bp.setCantidad_sugerida(getCellValue(fila.getCell(38)));
+            bp.setFecha_quemada(getCellValue(fila.getCell(39)));
+            bp.setDias_inv(getCellValue(fila.getCell(40)));
+            bp.setNota(getCellValue(fila.getCell(41)));
+            bp.setNo_sar(getCellValue(fila.getCell(42)));
+            bp.setContenedor(getCellValue(fila.getCell(43)));
+            bp.setFactura(getCellValue(fila.getCell(44)));
+            bp.setM3(getCellValue(fila.getCell(45)));
+            bp.setPeso(getCellValue(fila.getCell(46)));
+            bp.setPriority(getCellValue(fila.getCell(47)));
+            
+        	bufferPlanta.add(bp);
+        	if (bufferPlanta.size() >= 500) {
+                bufferPlanta_Repositorio.saveAll(bufferPlanta);
+                bufferPlanta.clear();
+            }
+        }
+        if (!bufferPlanta.isEmpty()) {
+        	bufferPlanta_Repositorio.saveAll(bufferPlanta);
+        }
+		} catch (Exception e) {
+            System.err.println("Error al abrir " + archivo.getName() + ": " + e.getMessage());
+        }}
+	@Transactional
+	public void actualizarCodigosPlaneador() throws Exception{
+		String ruta="\\\\TFSJIL01\\Planeacion_Control_Documental\\Buffer\\PO's sin PI\\CODIGOS POR PLANEADOR.xlsx";
+		Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
+        Sheet sheetPlaneador= wb.getSheet("Planeador");
+        codigos_Planeador_Repositorio.TruncarCodigosPlaneador();
+        List<Codigos_Planeador_Modelo> codigosPlan = new ArrayList<>();
+        for (int i=1; i <= sheetPlaneador.getLastRowNum(); i++) {
+        	Row r = sheetPlaneador.getRow(i);
+        	if (r == null || getInt(r.getCell(0)) == 0) continue;
+        	Codigos_Planeador_Modelo c= new Codigos_Planeador_Modelo();
+        	c.setItem(getCellValue(r.getCell(0)));
+        	c.setNombre_planner(getCellValue(r.getCell(1)));
+        	c.setGerente_planner(getCellValue(r.getCell(2)));
+        	c.setDescripcion(getCellValue(r.getCell(3)));
+        	c.setComprador(getCellValue(r.getCell(4)));
+        	
+        	codigosPlan.add(c);
+        }
+        if (codigosPlan.size() >= 500) {
+            codigos_Planeador_Repositorio.saveAll(codigosPlan);
+            codigosPlan.clear();
+        }
+        if (!codigosPlan.isEmpty()) {
+        	codigos_Planeador_Repositorio.saveAll(codigosPlan);
+        }
+    }
+
+	@Transactional
+	public void actualizarContactosPlanta() throws Exception{
+		String ruta="\\\\TFSJIL01\\Ordenes de Compra\\REPORTES\\Directorio.xlsx";
+		Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
+        Sheet sheet= wb.getSheet("Hoja1");
+        contactos_Planta_Repositorio.TruncarContactosPlanta();
+        List<Contactos_Planta_Modelo> contactosPlan = new ArrayList<>();
+        for (int i=2; i <= sheet.getLastRowNum(); i++) {
+        	Row r = sheet.getRow(i);
+        	Contactos_Planta_Modelo c= new Contactos_Planta_Modelo();
+        	c.setResponsable(getCellValue(r.getCell(1)));
+        	c.setGerente(getCellValue(r.getCell(2)));
+        	c.setRol(getCellValue(r.getCell(3)));
+        	c.setCorrespondencia(getCellValue(r.getCell(4)));
+        	c.setBu(getCellValue(r.getCell(5)));
+        	contactosPlan.add(c);
+        }
+        if (contactosPlan.size() >= 500) {
+            contactos_Planta_Repositorio.saveAll(contactosPlan);
+            contactosPlan.clear();
+        }
+        if (!contactosPlan.isEmpty()) {
+        	contactos_Planta_Repositorio.saveAll(contactosPlan);
+        }
+    }
+	
 	//FUNCIONES AUX 
 	private LocalDate getDate(Cell cell) {
 		String valordecelda = "";
