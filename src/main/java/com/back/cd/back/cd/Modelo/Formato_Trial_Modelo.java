@@ -51,6 +51,25 @@ public class Formato_Trial_Modelo {
     private String sellos;
     @Column(name="contenido_tablas")
     private String contenidoTablas;
+    @Column(name="pod")
+    private String pod;
+    private String nombrefabrica;
+	public String getNombrefabrica() {
+		return nombrefabrica;
+	}
+
+	public void setNombrefabrica(String nombrefabrica) {
+		this.nombrefabrica = nombrefabrica;
+	}
+
+	public String getPod() {
+		return pod;
+	}
+
+	public void setPod(String pod) {
+		this.pod = pod;
+	}
+
 	public String getContenidoTablas() {
 		return contenidoTablas;
 	}
