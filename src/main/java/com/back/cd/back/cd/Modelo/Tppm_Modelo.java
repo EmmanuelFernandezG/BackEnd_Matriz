@@ -33,7 +33,6 @@ public class Tppm_Modelo {
 	private long poth;
 	private	LocalDate etd;
 	private float precio;
-	
 	public long getPo() {
 		return po;
 	}

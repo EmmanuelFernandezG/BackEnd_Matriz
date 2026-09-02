@@ -1,26 +1,17 @@
 package com.back.cd.back.cd.Modelo.Repositorio;
 import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
-import com.back.cd.back.cd.Modelo.Soc_Modelo;
-
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.back.cd.back.cd.Modelo.Repositorio.SocProjection;
-import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
 import com.back.cd.back.cd.Modelo.Soc_Modelo;
 
 public interface Soc_Repositorio extends JpaRepository<Soc_Modelo, Long> {
 	
 
+	
 	@Query(value = ""
 		    + "SELECT DISTINCT "
 		    + "  socs.foliott AS folio_tt, "
@@ -63,20 +54,30 @@ public interface Soc_Repositorio extends JpaRepository<Soc_Modelo, Long> {
 			Optional<Soc_Nuevos> findByNoOrden(@Param("PO_PI") Long poPi);
 			
 			@Query(value = ""
-				+ " Select supplier as proveedor , descripcion_cond_pago as terminos_de_pago from lista_proveedores where acreedor = :no_proveedor limit 1 ",
+				+ " Select supplier as proveedor , descripcion_cond_pago as terminos_de_pago, mon as moneda ,c_pag as c_pag from lista_proveedores where acreedor = :no_proveedor limit 1 ",
 				nativeQuery = true)
 			Optional<Soc_Proveedor> findProveedorByNoProv(@Param("no_proveedor") Integer no_proveedor );
 
+			//fabricas
+			@Query(value = "select distinct sap_fabrica from matriz_cd.fabricas where sap_prov_real = :noSap", nativeQuery = true)
+			List<String> findFabricasByProveedor(@Param("noSap") String noSap);
+
+			@Query(value = "select nombre_fabrica from matriz_cd.fabricas where sap_prov_real = :noSap and sap_fabrica = :sapFabrica limit 1", nativeQuery = true)
+			String findNombreFabrica(@Param("noSap") String noSap, @Param("sapFabrica") String sapFabrica);
+			//
+			
 			@Query(value = ""
 					+ " select concat(Clave,', Fam: ',FamiliaSAP) as familia_del_producto, UnidadDeNegocio as unidad_de_negocio from codigos where codigo = :codigo ",
 					nativeQuery = true)
 				Optional<Soc_Familia_1Item> findcodigos(@Param("codigo") Integer codigo );
 
+			//proveedores
 			@Query(value = ""
 				+ " select distinct(acreedor) as noproveedor, supplier as proveedor, mon as moneda ,"
 				+ "c_pag as c_pag, incoterms2 as puerto, descripcion_cond_pago as terminos_de_pago, "
 				+ "calle as calle, poblacion as poblacion, cp as cp, nif2 as taxid, distrito as dis1 "
 				+ "from matriz_cd.lista_proveedores", 
+
 					nativeQuery = true)
 			List<Soc_Proveedor> getAllProveedores();	
 

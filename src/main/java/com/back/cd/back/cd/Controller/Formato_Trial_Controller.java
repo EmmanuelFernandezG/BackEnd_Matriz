@@ -42,8 +42,8 @@ public class Formato_Trial_Controller {
 	@GetMapping("/buscar/{folio}")
     public ResponseEntity<Formato_Trial_Modelo> buscarPorFolio(@PathVariable String folio) {
         return trial_Repositorio.findByFolio(folio)
-        		.map(registro -> ResponseEntity.ok().body(registro))
-                .orElse(ResponseEntity.notFound().build());
+        		.map(registro -> ResponseEntity.ok().body(registro))//encuent
+                .orElse(ResponseEntity.notFound().build()); //error 404 no encontrado
     }
 	
 	@GetMapping("/listar")

@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,21 +15,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.cd.back.cd.Exception.ResourceNotFoundException;
 import com.back.cd.back.cd.Modelo.Matriz_Control_Documental_Modelo;
+import com.back.cd.back.cd.Modelo.listaProveedores;
 import com.back.cd.back.cd.Modelo.Repositorio.CondicionMatricesBack;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_ProveedorCambio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_cd_Repositorio;
-import com.back.cd.back.cd.Modelo.Repositorio.Soc_Familia_1Item;
 
 @RestController
 @RequestMapping("/importaciones/controldocumental")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class Matriz_Cd_Controller {
-
 	@Autowired
 	private Matriz_cd_Repositorio matriz_cd_Repositorio;
 
@@ -131,7 +127,6 @@ public class Matriz_Cd_Controller {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("delete", Boolean.TRUE);
 		return ResponseEntity.ok(response);
-		
 	}
 	
 	@GetMapping("/matrizcd/nuevapo/{folio_tt}")

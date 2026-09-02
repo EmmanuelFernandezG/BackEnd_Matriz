@@ -14,6 +14,4 @@ public interface codigosRepository extends JpaRepository<codigos, Long>{
 			+ "truncate matriz_cd.codigos",
 			nativeQuery = true)
 		void Truncarcodigos() ;
-	
-
 }

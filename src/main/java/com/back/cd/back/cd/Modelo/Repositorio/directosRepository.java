@@ -9,11 +9,8 @@ import com.back.cd.back.cd.Modelo.directos;
 
 @Repository
 public interface directosRepository extends JpaRepository<directos, Long>{
-
 	@Query(value = ""
 			+ "truncate matriz_cd.directos",
 			nativeQuery = true)
 		void Truncardirectos() ;
-	
-
 }

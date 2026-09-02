@@ -4,16 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.back.cd.back.cd.Modelo.listaProveedores;
-
-
+import com.back.cd.back.cd.Modelo.bufferPlanta_Modelo;
 
 @Repository
-public interface listaProveedoresRepository extends JpaRepository<listaProveedores, Integer>{
+public interface buffer_Repositorio extends JpaRepository<bufferPlanta_Modelo, Long>{
 	@Query(value = ""
-			+ "truncate matriz_cd.lista_proveedores",
+			+ "truncate matriz_cd.buffer_planta",
 			nativeQuery = true)
-		void Truncarlistaproveedores() ;
+		void TruncarBufferPlanta();
 }
-
-

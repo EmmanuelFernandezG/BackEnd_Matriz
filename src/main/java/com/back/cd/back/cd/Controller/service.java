@@ -65,6 +65,7 @@ public class service {
 	private Fabricas_Repositorio fabricas_Repositorio;
 	@Autowired
 	private Arancel_Repositorio arancel_Repositorio;
+
 	@Autowired
 	private Tp_Pm_Repository tp_pm_Repository;
 	@Autowired
@@ -505,7 +506,7 @@ public class service {
             }
 		}
 	}
-	        
+	
 	@Transactional
 	public void actualizarPrecios() throws Exception {
 	    IOUtils.setByteArrayMaxOverride(200_000_000);
@@ -581,6 +582,7 @@ public class service {
                 		c.setEtd(getDate(fila.getCell(6)));
                 		c.setPrecio(getFloat(fila.getCell(11)));
                 		tppm_modelo.add(c);
+                		
                 	if (tppm_modelo.size() >= 500) {
                         tp_pm_Repository.saveAll(tppm_modelo);
                         tppm_modelo.clear();
@@ -635,9 +637,8 @@ public class service {
         }
 		} catch (Exception e) {
             System.err.println("Error al abrir " + archivo.getName() + ": " + e.getMessage());
-        }
+        }}
 	
-	}
 
 	@Transactional 
 	public void actualizarBufferPlanta() throws Exception{

@@ -14,8 +14,4 @@ public interface wkshRepository extends JpaRepository<wksh, Long>{
 			+ "truncate matriz_cd.wksh",
 			nativeQuery = true)
 		void Truncarwksh() ;
-	
-
-	
-	
 }

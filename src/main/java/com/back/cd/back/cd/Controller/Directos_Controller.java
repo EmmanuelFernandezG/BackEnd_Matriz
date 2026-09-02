@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.back.cd.back.cd.Modelo.sellos_Modelo;
-import com.back.cd.back.cd.Modelo.Repositorio.Sellos_Repositorio;
+import com.back.cd.back.cd.Modelo.directos;
+import com.back.cd.back.cd.Modelo.Repositorio.directosRepository;
 
 @RestController
-@RequestMapping("/importaciones/trialorder")
+@RequestMapping("/importaciones/controldocumental")
 @CrossOrigin(origins = "*")
-public class Sellos_Controller {
+public class Directos_Controller {
 	@Autowired
-	private Sellos_Repositorio sellos_Repositorio;
+	private directosRepository directosRepository;
 	
-	@GetMapping("/sellosall") 
-	public List<sellos_Modelo> listarSellos(){
-		return sellos_Repositorio.findAll();
+	@GetMapping("/directosall/") 
+	public List<directos> listarDirectos(){
+		return directosRepository.findAll();
 	}
 }

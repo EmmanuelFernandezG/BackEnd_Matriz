@@ -11,5 +11,5 @@ public interface ContactosSoc {
 	String getAsistente();
 	String getGteplan();
 	
-	String getPlanPlan();		
+	String getPlanPlan();
 }

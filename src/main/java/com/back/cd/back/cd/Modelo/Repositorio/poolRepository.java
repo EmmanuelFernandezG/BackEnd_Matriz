@@ -9,12 +9,8 @@ import com.back.cd.back.cd.Modelo.pool;
 
 @Repository
 public interface poolRepository extends JpaRepository<pool, Long>{
-
 	@Query(value = ""
 			+ "truncate matriz_cd.pool",
 			nativeQuery = true)
 		void Truncarpool() ;
-	
-	
-	
 }

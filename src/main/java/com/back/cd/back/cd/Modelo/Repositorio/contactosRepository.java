@@ -8,12 +8,8 @@ import com.back.cd.back.cd.Modelo.contactos;
 
 @Repository
 public interface contactosRepository extends JpaRepository<contactos, Long>{
-
 	@Query(value = ""
 			+ "truncate matriz_cd.contactos",
 			nativeQuery = true)
 		void Truncarcontactos() ;
-	
-
-	
 }

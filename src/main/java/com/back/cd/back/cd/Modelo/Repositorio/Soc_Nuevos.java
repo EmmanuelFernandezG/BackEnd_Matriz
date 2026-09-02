@@ -40,5 +40,4 @@ public interface Soc_Nuevos {
 	String getEnviodp();
 	String getEnviosap();
 	String getEnviocolocacion();
-
 }
