@@ -562,7 +562,7 @@ public class service {
 	@Transactional
 	public void actualizarTPPM() throws Exception{
 		tp_pm_Repository.Truncartppm();
-		String rutas= "\\\\cernotes\\Publico\\Z_FormatoTEST\\TST Rev\\BaseCalc.xlsm";
+		String rutas= "\\\\cernotes\\Publico\\Z_FormatoTEST\\TST Rev\\BaseCalc.xlsx";
 			String rutaActual=rutas;
 			Workbook wb = WorkbookFactory.create(new FileInputStream(rutaActual));
 		    Sheet sheet = wb.getSheet("Hoja1");
@@ -646,7 +646,7 @@ public class service {
 		File archivo = null;
 		for(int d=0; d<10; d++) {
 			String fecha = java.time.LocalDate.now().minusDays(d).format(java.time.format.DateTimeFormatter.ofPattern("ddMMyyyy"));
-			String ruta="\\\\cernotes\\Publico\\comparte\\Planeacion\\Buffer 2019\\Informe Buffer " +fecha+".xlsx";
+			String ruta="\\\\cernotes\\Publico\\comparte\\Planeacion\\Buffer 2019\\Informe Buffer " + fecha +".xlsx";
 			File archivoO = new File(ruta);
             if (archivoO.exists()) {
                 archivo = archivoO;
@@ -730,6 +730,8 @@ public class service {
         if (!bufferPlanta.isEmpty()) {
         	bufferPlanta_Repositorio.saveAll(bufferPlanta);
         }
+        bufferPlanta_Repositorio.limpiarSocsPlanta();
+        bufferPlanta_Repositorio.bufferASocs();
 		} catch (Exception e) {
             System.err.println("Error al abrir " + archivo.getName() + ": " + e.getMessage());
         }}
@@ -774,8 +776,8 @@ public class service {
         	c.setResponsable(getCellValue(r.getCell(1)));
         	c.setGerente(getCellValue(r.getCell(2)));
         	c.setRol(getCellValue(r.getCell(3)));
-        	c.setCorrespondencia(getCellValue(r.getCell(4)));
-        	c.setBu(getCellValue(r.getCell(5)));
+        	c.setCorrespondencia(getCellValue(r.getCell(5)));
+        	c.setBu(getCellValue(r.getCell(6)));
         	contactosPlan.add(c);
         }
         if (contactosPlan.size() >= 500) {

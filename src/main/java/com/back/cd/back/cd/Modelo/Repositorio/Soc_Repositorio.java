@@ -132,5 +132,9 @@ public interface Soc_Repositorio extends JpaRepository<Soc_Modelo, Long> {
 				    nativeQuery = true)
 				List<Soc_Modelo> Soc18meses();
 			
+			@Query(value = ""
+					    + "select * from matriz_cd.socs where unidad_de_negocio not like 'P L A N T A %'",
+					    nativeQuery = true)
+					List<Soc_Modelo> SocsinPlanta();
 			
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back.cd.back.cd.Modelo.Arancel_Modelo;
 import com.back.cd.back.cd.Modelo.Codigos_Planeador_Modelo;
+import com.back.cd.back.cd.Modelo.Contactos_Planta_Modelo;
+import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
 //import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
 import com.back.cd.back.cd.Modelo.MatrizCalculadora_Modelo;
 import com.back.cd.back.cd.Modelo.Tppm_Modelo;
@@ -24,6 +26,7 @@ import com.back.cd.back.cd.Modelo.precios;
 import com.back.cd.back.cd.Modelo.wksh;
 import com.back.cd.back.cd.Modelo.Repositorio.Arancel_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Codigos_Planeador_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
 // import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_Calculadora_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Tp_Pm_Repository;
@@ -31,6 +34,8 @@ import com.back.cd.back.cd.Modelo.Repositorio.bufferPlanta_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.codigosRepository;
 import com.back.cd.back.cd.Modelo.Repositorio.preciosRepository;
 import com.back.cd.back.cd.Modelo.Repositorio.wkshRepository;
+import com.back.cd.back.cd.Modelo.Repositorio.Contactos_Planta_Repositorio;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -50,8 +55,12 @@ public class Actualizar_Bases_Controller {
 	private Matriz_Calculadora_Repositorio matriz_Calculadora_Repositorio;
 	@Autowired
 	private wkshRepository wkshRepository;
-				//##	@Autowired
-				//##	private Control_PIs_Repositorio control_PIs_Repositorio;
+	@Autowired
+	private Control_PIs_Repositorio control_PIs_Repositorio;
+	@Autowired
+	private Contactos_Planta_Repositorio Contactos_Planta_Repositorio;
+	
+	
 	@PostMapping("/arancelpost")
 	public ResponseEntity<Map<String, Object>> arancel(){
 		Map<String, Object> respuesta=new HashMap<>();
@@ -186,11 +195,16 @@ public class Actualizar_Bases_Controller {
 		//        }
 		//	}
 	
-	//	@GetMapping("/controlpisall")
-	//	public List<Control_PIs_Modelo> listarcontrolpis(){
-	//		return control_PIs_Repositorio.findAll();
-	//	}
+		@GetMapping("/controlpisall")
+		public List<Control_PIs_Modelo> listarcontrolpis(){
+			return control_PIs_Repositorio.findAll();
+		}
 	
+	@GetMapping("/contactosplantaall")
+	public List<Contactos_Planta_Modelo> contactosplanta(){
+		return Contactos_Planta_Repositorio.findAll();
+	}
+			
 	@GetMapping("/matrizcalculadoraall")
 	public List<MatrizCalculadora_Modelo> listarmatcalc(){
 		return matriz_Calculadora_Repositorio.findAll();

@@ -41,9 +41,15 @@ public class Soc_Controller {
 	//private	socs_log_repositorio socs_log_repositorio;
 	private	Socs_log_repositorio socs_log_repositorio;
 
+	@GetMapping("/soccompleto/Calcu/") 
+	public List<Soc_Modelo> ConsultaAll(){
+		return soc_Repositorio.findAll(); 
+	}
+
+	
 	@GetMapping("/soccompleto/") 
 	public List<Soc_Modelo> listarSocTodo(){
-		return soc_Repositorio.findAll();
+		return soc_Repositorio.SocsinPlanta(); // cambie este de findall a consulta personalizada
 	}
 	
 	@GetMapping("/matrizcd/nuevapo/new/{folio_tt}")

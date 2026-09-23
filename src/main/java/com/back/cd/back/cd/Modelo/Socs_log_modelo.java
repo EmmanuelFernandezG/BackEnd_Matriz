@@ -44,6 +44,15 @@ public class Socs_log_modelo{
 	private LocalDate fecha_reciboctrl;
 	@Column(name="fecha_recibo_log")
 	private String fecha_recibo_log;
+	private String z_estatus_cd;
+	
+	public String getZ_estatus_cd() {
+		return z_estatus_cd;
+	}
+
+	public void setZ_estatus_cd(String z_estatus_cd) {
+		this.z_estatus_cd = z_estatus_cd;
+	}
 
 	public String getFecha_recibo_log() {
 		return fecha_recibo_log;

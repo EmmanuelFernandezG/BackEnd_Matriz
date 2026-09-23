@@ -1,8 +1,12 @@
 package com.back.cd.back.cd.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +16,7 @@ import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
 import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
 
 @RestController
-@RequestMapping("/seguimiento/planta")
+@RequestMapping("record/seguimiento/planta")
 @CrossOrigin(origins = "*")
 public class ControlPIs_Controller {
 	@Autowired
@@ -27,5 +31,9 @@ public class ControlPIs_Controller {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
+	@GetMapping("/controlpis/nuevapi/{nopo}")
+	public List<Control_PIs_Modelo> buscarRegistro(@PathVariable("nopo") Long nopo) {
+	    return control_PIs_Repositorio.buscarRegistro(nopo);
+	}
 	
 }

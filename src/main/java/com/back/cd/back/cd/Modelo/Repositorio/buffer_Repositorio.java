@@ -1,5 +1,7 @@
 package com.back.cd.back.cd.Modelo.Repositorio;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,4 +14,5 @@ public interface buffer_Repositorio extends JpaRepository<bufferPlanta_Modelo, L
 			+ "truncate matriz_cd.buffer_planta",
 			nativeQuery = true)
 		void TruncarBufferPlanta();
+	
 }

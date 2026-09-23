@@ -2,14 +2,16 @@ package com.back.cd.back.cd.Modelo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor; 
- 
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "Planta_soc")
 @AllArgsConstructor
@@ -264,4 +266,6 @@ public class Planta_Soc_Modelo {
 	public void setMotivo_de_revisado(String motivo_de_revisado) {
 		this.motivo_de_revisado = motivo_de_revisado;
 	}
+	
+	
 }
