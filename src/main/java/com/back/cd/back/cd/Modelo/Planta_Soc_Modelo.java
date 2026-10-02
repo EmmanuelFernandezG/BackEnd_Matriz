@@ -23,6 +23,8 @@ public class Planta_Soc_Modelo {
 	private long Id;
 	private LocalDateTime fecha_de_creacion;
 	private long po;
+	private long po_th;
+	private	String fabrica;
 	private String comprador;
 	private String colocador;
 	private String confirmador;	
@@ -55,7 +57,42 @@ public class Planta_Soc_Modelo {
 	private String enviada;
 	private String er_comentario;
 	private String motivo_de_revisado;
+	private long codigo;
+	private String clave;
+	private LocalDate etd;
 	
+	
+	
+	public String getFabrica() {
+		return fabrica;
+	}
+	public void setFabrica(String fabrica) {
+		this.fabrica = fabrica;
+	}
+	public long getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
+	}
+	public String getClave() {
+		return clave;
+	}
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+	public LocalDate getEtd() {
+		return etd;
+	}
+	public void setEtd(LocalDate etd) {
+		this.etd = etd;
+	}
+	public long getPo_th() {
+		return po_th;
+	}
+	public void setPo_th(long po_th) {
+		this.po_th = po_th;
+	}
 	public String getConfirmador() {
 		return confirmador;
 	}

@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.back.cd.back.cd.Modelo.Arancel_Modelo;
 import com.back.cd.back.cd.Modelo.Codigos_Planeador_Modelo;
 import com.back.cd.back.cd.Modelo.Contactos_Planta_Modelo;
-import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
-//import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
 import com.back.cd.back.cd.Modelo.MatrizCalculadora_Modelo;
 import com.back.cd.back.cd.Modelo.Tppm_Modelo;
 import com.back.cd.back.cd.Modelo.bufferPlanta_Modelo;
@@ -26,8 +24,6 @@ import com.back.cd.back.cd.Modelo.precios;
 import com.back.cd.back.cd.Modelo.wksh;
 import com.back.cd.back.cd.Modelo.Repositorio.Arancel_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Codigos_Planeador_Repositorio;
-import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
-// import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_Calculadora_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Tp_Pm_Repository;
 import com.back.cd.back.cd.Modelo.Repositorio.bufferPlanta_Repositorio;
@@ -56,8 +52,6 @@ public class Actualizar_Bases_Controller {
 	@Autowired
 	private wkshRepository wkshRepository;
 	@Autowired
-	private Control_PIs_Repositorio control_PIs_Repositorio;
-	@Autowired
 	private Contactos_Planta_Repositorio Contactos_Planta_Repositorio;
 	
 	
@@ -74,11 +68,6 @@ public class Actualizar_Bases_Controller {
             return ResponseEntity.internalServerError().body(respuesta);
         }
 	}
-	
-	/*@GetMapping("/arancel")
-	public List<Arancel_Modelo> aranceles(){
-		return arancel_Repositorio.findAll();
-	}*/
 	
 
 	@PostMapping("/fabricas")
@@ -181,24 +170,20 @@ public class Actualizar_Bases_Controller {
         }
 	}
 	
-//	@PostMapping("/pis")
-	//	public ResponseEntity<Map<String, Object>> actualizarControlPIs(){
-		Map<String, Object> respuesta = new HashMap<>();
-		//    try {
-		//  mService.actualizarControlPIs();
-		//            respuesta.put("message", "Tabla control_pis actualizada con éxito");
-		//            return ResponseEntity.ok(respuesta);
-		//        } catch (Exception e) {
-		//            e.printStackTrace();
-		//            respuesta.put("message", "Error al actualizar tabla: " + e.getMessage());
-		//            return ResponseEntity.internalServerError().body(respuesta);
-		//        }
-		//	}
-	
-		@GetMapping("/controlpisall")
-		public List<Control_PIs_Modelo> listarcontrolpis(){
-			return control_PIs_Repositorio.findAll();
+	@PostMapping("/pis")
+	public ResponseEntity<Map<String, Object>> actualizarControlPIs(){
+	Map<String, Object> respuesta = new HashMap<>();
+	try {
+	  mService.actualizarControlPIs();
+	            respuesta.put("message", "Tabla control_pis actualizada con éxito");
+	            return ResponseEntity.ok(respuesta);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            respuesta.put("message", "Error al actualizar tabla: " + e.getMessage());
+	            return ResponseEntity.internalServerError().body(respuesta);
+	        }
 		}
+	
 	
 	@GetMapping("/contactosplantaall")
 	public List<Contactos_Planta_Modelo> contactosplanta(){

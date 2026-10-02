@@ -16,7 +16,7 @@ import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
 import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
 
 @RestController
-@RequestMapping("record/seguimiento/planta")
+@RequestMapping("importaciones/record/seguimiento/planta")
 @CrossOrigin(origins = "*")
 public class ControlPIs_Controller {
 	@Autowired
@@ -35,5 +35,12 @@ public class ControlPIs_Controller {
 	public List<Control_PIs_Modelo> buscarRegistro(@PathVariable("nopo") Long nopo) {
 	    return control_PIs_Repositorio.buscarRegistro(nopo);
 	}
+
+	@GetMapping("/controlpisall")
+	public List<Control_PIs_Modelo> listarcontrolpis(){
+		return control_PIs_Repositorio.findAll();
+	}
+
+
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,11 @@ public class Planta_Soc_Controller {
 	
 	@PutMapping("/soc/planta/{Id}")
 	public ResponseEntity<Planta_Soc_Modelo> actualizarRegistroPlanta(@PathVariable("Id") Long Id, @RequestBody Planta_Soc_Modelo planta_Soc_Modelo){
+	     return ResponseEntity.ok(planta_soc_Repository.save(planta_Soc_Modelo));
+	}
+	
+	@PostMapping("/soc/nuevo/")
+	public ResponseEntity<Planta_Soc_Modelo> NuevoRegistroPlanta(@RequestBody Planta_Soc_Modelo planta_Soc_Modelo){
 	     return ResponseEntity.ok(planta_soc_Repository.save(planta_Soc_Modelo));
 	}
 }

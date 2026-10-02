@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import com.back.cd.back.cd.Modelo.Arancel_Modelo;
 import com.back.cd.back.cd.Modelo.Codigos_Planeador_Modelo;
 import com.back.cd.back.cd.Modelo.Contactos_Planta_Modelo;
+import com.back.cd.back.cd.Modelo.Control_PIs_Modelo;
 import com.back.cd.back.cd.Modelo.Fabricas_Modelo;
 import com.back.cd.back.cd.Modelo.MatrizCalculadora_Modelo;
 import com.back.cd.back.cd.Modelo.Tppm_Modelo;
@@ -38,6 +39,7 @@ import com.back.cd.back.cd.Modelo.wksh;
 import com.back.cd.back.cd.Modelo.Repositorio.Arancel_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Codigos_Planeador_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Contactos_Planta_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.Control_PIs_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Fabricas_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Matriz_Calculadora_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Tp_Pm_Repository;
@@ -76,6 +78,10 @@ public class service {
 	private Codigos_Planeador_Repositorio codigos_Planeador_Repositorio;
 	@Autowired
 	private Contactos_Planta_Repositorio contactos_Planta_Repositorio;
+	
+	@Autowired
+	private Control_PIs_Repositorio control_PIs_Repositorio;
+	
 	
 	@Transactional
 	public void actualizarArancel() throws Exception{
@@ -788,6 +794,49 @@ public class service {
         	contactos_Planta_Repositorio.saveAll(contactosPlan);
         }
     }
+	
+
+	@Transactional
+	public void actualizarControlPIs() throws Exception{
+		IOUtils.setByteArrayMaxOverride(300_000_000);
+		String ruta= "\\\\TFSJIL01\\Planeacion_Control_Documental\\Control PI's 2026.xlsm";
+		//String ruta= "\\\\TFSJIL01\\Planeacion_Control_Documental\\Control PI's 2026.xlsm";
+		Workbook wb = WorkbookFactory.create(new FileInputStream(ruta));
+        Sheet sheet= wb.getSheet("PI's");
+        control_PIs_Repositorio.TruncarControlPIs();
+        List<Control_PIs_Modelo> pis = new ArrayList<>();
+        for (int i=4; i <= sheet.getLastRowNum(); i++) {
+        	try{
+        		Row r = sheet.getRow(i);
+        	
+        	if (r == null || getInt(r.getCell(0)) == 0) continue;
+        	Control_PIs_Modelo c= new Control_PIs_Modelo();
+        	c.setNopo(getCellValue(r.getCell(0)));
+        	c.setRazonsocial(getCellValue(r.getCell(18)));
+        	c.setIncoterm(getCellValue(r.getCell(19)));
+        	c.setPuerto(getCellValue(r.getCell(20)));
+        	c.setTerminopago(getCellValue(r.getCell(21)));
+        	c.setCantidad(getCellValue(r.getCell(22)));
+        	c.setPrecio(getCellValue(r.getCell(23)));
+        	c.setEtd(getCellValue(r.getCell(24)));
+        	c.setComentarios(getCellValue(r.getCell(34)));
+        	//c.setFoliott(getCellValue(r.getCell(1)));
+        	
+        	pis.add(c);
+        }catch (Exception e) {
+   		 e.printStackTrace();
+	        continue;
+	 }
+        	}
+        if (pis.size() >= 500) {
+            control_PIs_Repositorio.saveAll(pis);
+            pis.clear();
+        }
+        if (!pis.isEmpty()) {
+        	control_PIs_Repositorio.saveAll(pis);
+        }
+    }
+	
 	
 	//FUNCIONES AUX 
 	private LocalDate getDate(Cell cell) {
