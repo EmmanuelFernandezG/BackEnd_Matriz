@@ -35,4 +35,10 @@ public class Formato_Revisados_Controller {
 	public Formato_Revisados_Modelo guardarregistro(@RequestBody Formato_Revisados_Modelo revisado) {
 		return formato_Revisados_Repository.save(revisado);
 	}
+	
+	@GetMapping("/listar")
+    public ResponseEntity<List<Formato_Revisados_Modelo>> listarTodos() {
+        List<Formato_Revisados_Modelo> lista = formato_Revisados_Repository.findAll();
+        return ResponseEntity.ok(lista);
+    }
 }

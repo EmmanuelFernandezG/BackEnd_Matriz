@@ -26,6 +26,7 @@ import com.back.cd.back.cd.Modelo.Repositorio.SocProjection;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Familia_1Item;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Nuevos;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Proveedor;
+import com.back.cd.back.cd.Modelo.Repositorio.Soc_PuertoEmbarque;
 import com.back.cd.back.cd.Modelo.Repositorio.Soc_Repositorio;
 import com.back.cd.back.cd.Modelo.Repositorio.Socs_log_repositorio;
 import com.back.cd.back.cd.Modelo.Socs_log_modelo;
@@ -177,6 +178,10 @@ public class Soc_Controller {
 	@GetMapping("/familia/{codigo}")
 	public Optional<Soc_Familia_1Item> getFamilia(@PathVariable("codigo") Integer codigo){
 		return soc_Repositorio.findcodigos(codigo);
+	}
+	@GetMapping("/puerto")
+	public List<Soc_PuertoEmbarque> TraePuerto(){
+		return soc_Repositorio.puerto_embarque();
 	}
 	
 }
