@@ -30,7 +30,28 @@ public class Control_PIs_Modelo {
 	private LocalDate fechafinalcompras;
 	private LocalDate finicialplan;
 	private LocalDate ffinalplan;
+	private LocalDate enviada;
+	private String adicelim;
+	private LocalDate etdpi;
 	
+	public String getAdicelim() {
+		return adicelim;
+	}
+	public void setAdicelim(String adicelim) {
+		this.adicelim = adicelim;
+	}
+	public LocalDate getEtdpi() {
+		return etdpi;
+	}
+	public void setEtdpi(LocalDate etdpi) {
+		this.etdpi = etdpi;
+	}
+	public LocalDate getEnviada() {
+		return enviada;
+	}
+	public void setEnviada(LocalDate enviada) {
+		this.enviada = enviada;
+	}
 	public LocalDate getFecharev() {
 		return fecharev;
 	}
@@ -127,6 +148,7 @@ public class Control_PIs_Modelo {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getNopo() {
 		return nopo;
 	}

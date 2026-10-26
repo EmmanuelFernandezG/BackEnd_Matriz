@@ -379,7 +379,6 @@ public class service {
         Sheet sheetPlaneadores= wb.getSheet("Planeadores");
         contactosRepository.Truncarcontactos();
         List<contactos> listaContactos = new ArrayList<>();
-        // BUSCARV: Grupo de planeadores (Columna B)  Gerente C, Planeador F
         for (int i=1; i <= sheetCompradores.getLastRowNum(); i++) {
         	Row r = sheetCompradores.getRow(i);
         	String grupoCompr = getCellValue(r.getCell(1)); //B
@@ -603,9 +602,10 @@ public class service {
 	public void actualizarMatrizCalculadora() throws Exception{
 		IOUtils.setByteArrayMaxOverride(200_000_000);
 		File archivo = null;
-		for(int d=0; d<10; d++) {
+		for(int d=0; d<200; d++) {
 			String fecha = java.time.LocalDate.now().minusDays(d).format(java.time.format.DateTimeFormatter.ofPattern("ddMMyy"));
-			String ruta="\\\\Cernotes\\seguimiento ordenes de compra imports\\Calculadora\\Listado de Items-Proveedores con matriz firmada o de Referencia al "+fecha+".xlsx";
+			String ruta="\\\\Cernotes\\seguimiento ordenes de compra imports\\Calculadora\\Listado de Items-Proveedores con matriz firmada o de Referencia al " + fecha + ".xlsx";
+			
 			File archivoO = new File(ruta);
             if (archivoO.exists()) {
                 archivo = archivoO;

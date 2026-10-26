@@ -31,9 +31,37 @@ public class Formato_Revisados_Modelo {
 	private String molde;
 	private String motivo;
 	private String clvterm;
-	private String nvotermpago;
+	private String nuevotermpago;
+	private String buprovalternos;
+    public String getBuprovalternos() {
+		return buprovalternos;
+	}
+
+	public void setBuprovalternos(String buprovalternos) {
+		this.buprovalternos = buprovalternos;
+	}
+	public String getNuevotermpago() {
+		return nuevotermpago;
+	}
+	public void setNuevotermpago(String nuevotermpago) {
+		this.nuevotermpago = nuevotermpago;
+	}
+	//private String nvotermpago;
 	private String contenido_tabla;
-	
+	private String po;
+	private String c_pag;
+	public String getC_pag() {
+		return c_pag;
+	}
+	public void setC_pag(String c_pag) {
+		this.c_pag = c_pag;
+	}
+	public String getPo() {
+		return po;
+	}
+	public void setPo(String po) {
+		this.po = po;
+	}
 	public String getClvterm() {
 		return clvterm;
 	}
@@ -111,12 +139,6 @@ public class Formato_Revisados_Modelo {
 	}
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
-	}
-	public String getNvotermpago() {
-		return nvotermpago;
-	}
-	public void setNvotermpago(String nvotermpago) {
-		this.nvotermpago = nvotermpago;
 	}
 	public String getContenido_tabla() {
 		return contenido_tabla;
