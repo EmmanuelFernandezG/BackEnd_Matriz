@@ -181,9 +181,20 @@ public class Matriz_Control_Documental_Modelo {
 
      @javax.persistence.Column(name = "fecha_entrega_compras")
      private LocalDateTime fecha_entrega_compras;
+
+     @javax.persistence.Column(name = "visibilidad")
+     private Boolean visibilidad;
+
      
-     
-     public long getId() {
+     public Boolean getVisibilidad() {
+		return visibilidad;
+	}
+
+	public void setVisibilidad(Boolean visibilidad) {
+		this.visibilidad = visibilidad;
+	}
+
+	public long getId() {
 		return id;
 	}
 

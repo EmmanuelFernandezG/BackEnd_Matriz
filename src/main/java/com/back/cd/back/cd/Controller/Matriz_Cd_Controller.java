@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.Id;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -142,13 +145,18 @@ public class Matriz_Cd_Controller {
 	@GetMapping("/cambiobu/{concatenar}")
 		public Optional<Matriz_ProveedorCambio> getProveedor(@PathVariable("concatenar") String concatenar){
 			return matriz_cd_Repositorio.findporBu(concatenar);
-		}
+	}
 
 		@GetMapping("/condmatrices/{foliott}/{nooc}")
 		public Optional<CondicionMatricesBack> condicionMatriz(@PathVariable("foliott") Long foliott, @PathVariable("nooc") Long nooc){
 			return matriz_cd_Repositorio.CondicionMatrices(foliott, nooc);
+	}
+		@PatchMapping("/matrizcd/{id}")
+		public ResponseEntity<Matriz_Control_Documental_Modelo> actualizarParcial(@PathVariable long id, @RequestBody Matriz_Control_Documental_Modelo registromodif){
+			registromodif.setId(id); 
+		    Matriz_Control_Documental_Modelo guardar = matriz_cd_Repositorio.save(registromodif);
+		    return ResponseEntity.ok(guardar);	
 		}
-
 		
 		
 	}
