@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.back.cd.back.cd.Modelo.Arancel_Modelo;
 import com.back.cd.back.cd.Modelo.Codigos_Planeador_Modelo;
 import com.back.cd.back.cd.Modelo.Contactos_Planta_Modelo;
+import com.back.cd.back.cd.Modelo.MatricesPlanta_Modelo;
 import com.back.cd.back.cd.Modelo.MatrizCalculadora_Modelo;
 import com.back.cd.back.cd.Modelo.Tppm_Modelo;
 import com.back.cd.back.cd.Modelo.bufferPlanta_Modelo;
@@ -31,6 +32,7 @@ import com.back.cd.back.cd.Modelo.Repositorio.codigosRepository;
 import com.back.cd.back.cd.Modelo.Repositorio.preciosRepository;
 import com.back.cd.back.cd.Modelo.Repositorio.wkshRepository;
 import com.back.cd.back.cd.Modelo.Repositorio.Contactos_Planta_Repositorio;
+import com.back.cd.back.cd.Modelo.Repositorio.MatricesPlanta_Repositorio;
 
 
 @RestController
@@ -53,7 +55,8 @@ public class Actualizar_Bases_Controller {
 	private wkshRepository wkshRepository;
 	@Autowired
 	private Contactos_Planta_Repositorio Contactos_Planta_Repositorio;
-	
+	@Autowired
+	private MatricesPlanta_Repositorio matricesPlanta_Repositorio;
 	
 	@PostMapping("/arancelpost")
 	public ResponseEntity<Map<String, Object>> arancel(){
@@ -162,6 +165,8 @@ public class Actualizar_Bases_Controller {
             mService.actualizarCodigosPlaneador();
             mService.actualizarContactosPlanta();
             respuesta.put("message", "Tablas (buffer_planta,codigos_planeador, contactos_planta) actualizadas con éxito");
+            mService.actualizarMatricesPlanta();
+            respuesta.put("message", "Tablas (buffer_planta,codigos_planeador, contactos_planta, matrices_planta) actualizadas con éxito");
             return ResponseEntity.ok(respuesta);
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,6 +208,11 @@ public class Actualizar_Bases_Controller {
 	@GetMapping("/preciosall")
 	public List<precios> listarPrecios(){
 		return preciosRepository.findAll();
+	}
+	
+	@GetMapping("/matricesplantaall")
+	public List<MatricesPlanta_Modelo> matrices(){
+		return matricesPlanta_Repositorio.findAll();
 	}
 	
 	@PostMapping("/actualizar/revisados")

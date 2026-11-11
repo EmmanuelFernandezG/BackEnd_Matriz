@@ -43,5 +43,10 @@ public interface Matriz_cd_Repositorio extends JpaRepository<Matriz_Control_Docu
 		+"	SELECT * FROM matriz_cd.matrizcd WHERE fecha_de_recepcion >= NOW() - INTERVAL 18 MONTH",
 			nativeQuery = true)
 	List<Matriz_Control_Documental_Modelo> BuscarU18meses();
-	
+
+	@Query(value = ""
+			+"	SELECT * FROM matriz_cd.matrizcd WHERE fecha_de_recepcion >= NOW() - INTERVAL 6 MONTH",
+				nativeQuery = true)
+		List<Matriz_Control_Documental_Modelo> BuscarU6meses();
+
 }

@@ -38,11 +38,16 @@ public class Matriz_Cd_Controller {
 	public List<Matriz_Control_Documental_Modelo> lista18Meses() {
 		return matriz_cd_Repositorio.BuscarU18meses();
 	}
+
+	@GetMapping("/matrizcd6")
+	public List<Matriz_Control_Documental_Modelo> lista6Meses() {
+		return matriz_cd_Repositorio.BuscarU6meses();
+	}
 	
-//	@GetMapping("/matrizcd")
-//	public List<Matriz_Control_Documental_Modelo> listartodo(){
-//		return matriz_cd_Repositorio.findAll();
-//	}
+	@GetMapping("/matrizcd")
+	public List<Matriz_Control_Documental_Modelo> listartodo(){
+		return matriz_cd_Repositorio.findAll();
+	}
 	
 	@PostMapping("/matrizcd")
 	public Matriz_Control_Documental_Modelo guardarregistro(@RequestBody Matriz_Control_Documental_Modelo matriz_Control_Documental_Modelo) {
@@ -54,7 +59,6 @@ public class Matriz_Cd_Controller {
 		Matriz_Control_Documental_Modelo matriz_Control_Documental_Modelo = matriz_cd_Repositorio.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException("Registro No Encontrado : " + Id) );
 		return ResponseEntity.ok(matriz_Control_Documental_Modelo);
-		
 	}
 	
 	@PutMapping("/matrizcd/{Id}")
@@ -157,7 +161,6 @@ public class Matriz_Cd_Controller {
 		    Matriz_Control_Documental_Modelo guardar = matriz_cd_Repositorio.save(registromodif);
 		    return ResponseEntity.ok(guardar);	
 		}
-		
-		
+			
 	}
 	
